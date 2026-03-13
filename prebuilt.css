@@ -52,6 +52,13 @@
       font-style: italic;
     }
 
+    /* Cards container */
+    #cards-container {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
     /* Card */
     .card {
       background: white;
@@ -60,14 +67,24 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.08);
       border-left: 4px solid #27ae60;
     }
+    .card.sortable-ghost { opacity: 0.3; background: #f0f2f5; }
 
     .card-header {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
+      align-items: center;
       margin-bottom: 6px;
-      gap: 12px;
+      gap: 10px;
     }
+
+    .card-drag-grip {
+      color: #ccc;
+      cursor: grab;
+      font-size: 0.85rem;
+      letter-spacing: -1px;
+      flex-shrink: 0;
+      user-select: none;
+    }
+    .card-drag-grip:hover { color: #aaa; }
 
     .card-title {
       font-size: 1.08rem;
@@ -77,11 +94,47 @@
       flex: 1;
     }
 
+    .card-delete {
+      font-size: 1.1rem;
+      color: #ddd;
+      cursor: pointer;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .card-delete:hover { color: #e74c3c; }
+
+    .btn-add-card { background: #eafaf1; color: #27ae60; }
+
     .card-meta {
+      font-size: 0.84rem;
+      color: #aaa;
+      margin-bottom: 4px;
+    }
+
+    .card-detail {
       font-size: 0.84rem;
       color: #aaa;
       margin-bottom: 16px;
     }
+
+    .card-detail-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+      margin-bottom: 16px;
+    }
+    .card-detail-row .detail-delete {
+      line-height: 1.5;
+    }
+
+    .add-card-detail {
+      font-size: 0.75rem;
+      color: #ddd;
+      cursor: pointer;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    .add-card-detail:hover { color: #aaa; }
 
     .steps { list-style: none; }
 
@@ -133,6 +186,38 @@
       color: #333;
       line-height: 1.4;
     }
+
+    .step-detail {
+      font-size: 0.82rem;
+      color: #aaa;
+      line-height: 1.4;
+      margin-top: 3px;
+    }
+    .step.done .step-detail { opacity: 0.4; text-decoration: line-through; }
+
+    .add-detail {
+      font-size: 0.75rem;
+      color: #ddd;
+      cursor: pointer;
+      margin-top: 3px;
+      display: inline-block;
+    }
+    .add-detail:hover { color: #aaa; }
+
+    .detail-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+      margin-top: 3px;
+    }
+    .detail-delete {
+      font-size: 0.75rem;
+      color: #ddd;
+      cursor: pointer;
+      flex-shrink: 0;
+      line-height: 1.6;
+    }
+    .detail-delete:hover { color: #e74c3c; }
 
     .step-time {
       font-size: 0.8rem;
