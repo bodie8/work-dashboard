@@ -1,29 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PreBuilt Courses Workflow</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
   <style>
     /* loaded from prebuilt.css */
   </style>
-  <link rel="stylesheet" href="prebuilt.css" />
-</head>
+  <link rel="stylesheet" href="prebuilt.css">
+<style type="text/css" id="ctre_styles">
+			#ctre_wnd {
+				position: fixed; bottom: 0; right: 10px;
+				background: #fff; box-shadow: 0px 0px 40px rgba(0,0,0,0.15);
+				border-radius: 3px 3px 0 0;
+				z-index: 2147483647;
+			}
+
+			@media (prefers-color-scheme: dark) {
+				#ctre_wnd { background: #000; box-shadow: 0px 0px 40px rgba(255,255,255,0.15); }
+			}
+			</style></head>
 <body>
 
   <div class="toolbar">
     <div class="page-header">
       <h1>PreBuilt Courses Workflow</h1>
-      <div class="subtitle" id="subtitle">Managed with Claude</div>
+      <div class="subtitle" id="subtitle">Last updated: March 13, 2026 &nbsp;·&nbsp; Managed with Claude</div>
     </div>
     <div class="toolbar-actions">
       <button class="btn btn-reset-token" onclick="resetToken()">Reset Token</button>
-      <button class="btn btn-save" onclick="savePage()">Save</button>
+      <button class="btn btn-save" onclick="savePage()" disabled="">Saving…</button>
     </div>
   </div>
 
-  <p class="edit-hint">Click any text to edit. Drag ⠿ to reorder steps. Click step number to mark complete.</p>
+  
 
   <div class="card" id="card-prebuilt">
     <div class="card-header">
@@ -33,15 +43,17 @@
 
     <ul class="steps" id="steps-prebuilt">
 
+      
+
       <li class="step">
         <span class="drag-grip" title="Drag to reorder">⠿</span>
         <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
         <div class="step-body">
-          <div class="step-text" contenteditable="true">Review course outline and source materials</div>
+          <div class="step-text" contenteditable="true">Set up Canvas course shell</div>
         </div>
-        <div class="step-time" contenteditable="true">30 min</div>
+        <div class="step-time" contenteditable="true">20 min</div>
         <div class="step-controls">
-          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">&times;</span>
+          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">×</span>
         </div>
       </li>
 
@@ -49,15 +61,13 @@
         <span class="drag-grip" title="Drag to reorder">⠿</span>
         <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">2</div>
         <div class="step-body">
-          <div class="step-text" contenteditable="true">Set up Canvas course shell</div>
+          <div class="step-text" contenteditable="true">Review course outline and source materials</div>
         </div>
-        <div class="step-time" contenteditable="true">20 min</div>
+        <div class="step-time" contenteditable="true">30 min</div>
         <div class="step-controls">
-          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">&times;</span>
+          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">×</span>
         </div>
-      </li>
-
-      <li class="step">
+      </li><li class="step">
         <span class="drag-grip" title="Drag to reorder">⠿</span>
         <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div>
         <div class="step-body">
@@ -65,7 +75,7 @@
         </div>
         <div class="step-time" contenteditable="true">1 hr</div>
         <div class="step-controls">
-          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">&times;</span>
+          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">×</span>
         </div>
       </li>
 
@@ -77,7 +87,7 @@
         </div>
         <div class="step-time" contenteditable="true">45 min</div>
         <div class="step-controls">
-          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">&times;</span>
+          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">×</span>
         </div>
       </li>
 
@@ -89,7 +99,7 @@
         </div>
         <div class="step-time" contenteditable="true">TBD</div>
         <div class="step-controls">
-          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">&times;</span>
+          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">×</span>
         </div>
       </li>
 
@@ -98,9 +108,10 @@
     <div class="add-step" onclick="addStep('steps-prebuilt')">+ Add step</div>
   </div>
 
-  <div class="footer" id="footer">Managed with Claude</div>
+  <div class="footer" id="footer">Last updated: March 13, 2026 &nbsp;·&nbsp; Managed with Claude</div>
 
   <script src="prebuilt.js"></script>
 
-</body>
-</html>
+
+
+<div id="give-freely-root-bcjindcccaagfpapjjmafapmmgkkhgoa" class="give-freely-root" data-extension-id="bcjindcccaagfpapjjmafapmmgkkhgoa" data-extension-name="JSON Formatter" style="display: block;"></div></body></html>
