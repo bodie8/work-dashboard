@@ -1,0 +1,349 @@
+    // Sortable: status board columns (drag between columns)
+    ['board-inprogress','board-frontburner','board-waiting','board-radar'].forEach(id => {
+      Sortable.create(document.getElementById(id), {
+        group: 'board',
+        handle: '.drag-grip',
+        animation: 150,
+        ghostClass: 'sortable-ghost'
+      });
+    });
+
+    // Sortable: project cards grid
+    Sortable.create(document.getElementById('cards-container'), {
+      animation: 150,
+      ghostClass: 'sortable-ghost',
+      handle: '.drag-grip'
+    });
+
+    // Sortable: steps within each card
+    function initStepsSortable(listId) {
+      const el = document.getElementById(listId);
+      if (!el) return;
+      Sortable.create(el, {
+        animation: 150,
+        ghostClass: 'sortable-ghost',
+        handle: '.drag-grip',
+        onEnd: renumberSteps
+      });
+    }
+    ['steps-rubric','steps-youtube','steps-office365','steps-badges','steps-self-eval','steps-lms-admin','steps-block-editor','steps-igniteai','steps-new-quizzes','steps-qikr'].forEach(initStepsSortable);
+
+    // Sortable: backlog lists (drag between groups)
+    ['backlog-guides','backlog-canvas','backlog-other'].forEach(id => {
+      Sortable.create(document.getElementById(id), {
+        group: 'backlog',
+        handle: '.backlog-grip',
+        animation: 150,
+        ghostClass: 'sortable-ghost'
+      });
+    });
+
+    // Renumber step bubbles after reorder
+    function renumberSteps() {
+      document.querySelectorAll('.steps').forEach(list => {
+        list.querySelectorAll('.step').forEach((step, i) => {
+          const num = step.querySelector('.step-num');
+          if (num) {
+            num.textContent = i + 1;
+            num.onclick = function() { this.closest('.step').classList.toggle('done'); };
+            num.title = 'Mark complete';
+          }
+        });
+      });
+    }
+
+    // Add a step to a card
+    function addStep(stepsId) {
+      const list = document.getElementById(stepsId);
+      const count = list.querySelectorAll('.step').length + 1;
+      const li = document.createElement('li');
+      li.className = 'step';
+      li.innerHTML = `
+        <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">${count}</div>
+        <div class="step-body">
+          <div class="step-text" contenteditable="true">New step</div>
+        </div>
+        <div class="step-time" contenteditable="true">TBD</div>
+        <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">&times;</span></div>
+      `;
+      list.appendChild(li);
+      li.querySelector('[contenteditable]').focus();
+    }
+
+
+
+    // Column-to-badge mapping
+    const colBadgeMap = {
+      'board-inprogress':  { badgeClass: 'badge-progress', badgeLabel: 'In Progress', cardClass: 'card-progress' },
+      'board-frontburner': { badgeClass: 'badge-soon',     badgeLabel: 'Do Soon',     cardClass: 'card-soon'     },
+      'board-waiting':     { badgeClass: 'badge-waiting',  badgeLabel: 'Waiting',     cardClass: 'card-waiting'  },
+      'board-radar':       { badgeClass: 'badge-radar',    badgeLabel: 'On the Radar', cardClass: 'card-radar'   }
+    };
+
+    // Add a board item — prompts Note vs Card
+    function addBoardItem(listId) {
+      document.getElementById('add-type-modal').classList.add('open');
+      document.getElementById('add-type-modal').dataset.listId = listId;
+    }
+
+    function confirmAddNote() {
+      const listId = document.getElementById('add-type-modal').dataset.listId;
+      document.getElementById('add-type-modal').classList.remove('open');
+      const list = document.getElementById(listId);
+      const div = document.createElement('div');
+      div.className = 'board-item';
+      div.innerHTML = `
+        <span contenteditable="true">New item</span>
+        <div class="sub" contenteditable="true">Details</div>
+        <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">&times;</span>
+      `;
+      list.appendChild(div);
+      div.querySelector('[contenteditable]').focus();
+    }
+
+    function confirmAddCard() {
+      const listId = document.getElementById('add-type-modal').dataset.listId;
+      document.getElementById('add-type-modal').classList.remove('open');
+      const mapping = colBadgeMap[listId] || { badgeClass: 'badge-soon', badgeLabel: 'Do Soon', cardClass: 'card-soon' };
+
+      // Create the card
+      cardCounter++;
+      const cardId = 'card-new-' + cardCounter;
+      const stepsId = 'steps-new-' + cardCounter;
+      const container = document.getElementById('cards-container');
+      const div = document.createElement('div');
+      div.className = `card ${mapping.cardClass}`;
+      div.id = cardId;
+      div.innerHTML = `
+        <div class="card-top">
+          <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
+        <div class="card-title" contenteditable="true">New Project</div>
+          <div class="badge ${mapping.badgeClass}" onclick="openBadgePicker(this)">${mapping.badgeLabel}</div>
+          <span class="card-controls" onclick="removeCard(this)" title="Remove card">&times;</span>
+        </div>
+        <div class="card-meta" contenteditable="true">Est. total: TBD</div>
+        <ul class="steps" id="${stepsId}">
+          <li class="step">
+            <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
+            <div class="step-body">
+              <div class="step-text" contenteditable="true">First step</div>
+            </div>
+            <div class="step-time" contenteditable="true">TBD</div>
+            <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">&times;</span></div>
+          </li>
+        </ul>
+        <div class="add-step" onclick="addStep('${stepsId}')">+ Add step</div>
+      `;
+      container.appendChild(div);
+      initStepsSortable(stepsId);
+
+      // Also add a linked board entry
+      const list = document.getElementById(listId);
+      const boardDiv = document.createElement('div');
+      boardDiv.className = 'board-item';
+      boardDiv.innerHTML = `
+        <span class="drag-grip" title="Drag to reorder">⠿</span>
+        <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">&times;</span>
+        <span class="drag-grip" title="Drag to reorder">⠿</span>
+          <a href="#${cardId}" class="board-link" contenteditable="false">New Project</a>
+        <div class="sub" contenteditable="true">New card — see details below</div>
+      `;
+      list.appendChild(boardDiv);
+
+      // Scroll to and focus the new card title, wire up sync
+      div.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => {
+        const titleEl = div.querySelector('.card-title');
+        titleEl.focus();
+        titleEl.addEventListener('input', () => syncBoardLink(cardId, titleEl.textContent.trim()));
+      }, 400);
+    }
+
+    // Add a backlog item
+    function addBacklogItem(listId) {
+      const list = document.getElementById(listId);
+      const div = document.createElement('div');
+      div.className = 'backlog-item';
+      div.innerHTML = `
+        <span contenteditable="true">New item</span>
+        <span class="backlog-item-controls" onclick="if(confirm('Remove this item?')) this.closest('.backlog-item').remove()" title="Remove">&times;</span>
+      `;
+      list.appendChild(div);
+      div.querySelector('[contenteditable]').focus();
+    }
+
+    // Add a new project card (from toolbar button)
+    // Initialize counter above any card-new-N IDs already in the DOM
+    let cardCounter = 100;
+    document.querySelectorAll('[id^="card-new-"]').forEach(el => {
+      const n = parseInt(el.id.replace('card-new-', ''), 10);
+      if (n > cardCounter) cardCounter = n;
+    });
+    function addCard() {
+      cardCounter++;
+      const stepsId = 'steps-new-' + cardCounter;
+      const container = document.getElementById('cards-container');
+      const div = document.createElement('div');
+      div.className = 'card card-soon';
+      div.innerHTML = `
+        <div class="card-top">
+          <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
+        <div class="card-title" contenteditable="true">New Project</div>
+          <div class="badge badge-soon" onclick="openBadgePicker(this)">Do Soon</div>
+          <span class="card-controls" onclick="removeCard(this)" title="Remove card">&times;</span>
+        </div>
+        <div class="card-meta" contenteditable="true">Est. total: TBD</div>
+        <ul class="steps" id="${stepsId}">
+          <li class="step">
+            <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
+            <div class="step-body">
+              <div class="step-text" contenteditable="true">First step</div>
+            </div>
+            <div class="step-time" contenteditable="true">TBD</div>
+            <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">&times;</span></div>
+          </li>
+        </ul>
+        <div class="add-step" onclick="addStep('${stepsId}')">+ Add step</div>
+      `;
+      container.appendChild(div);
+      initStepsSortable(stepsId);
+      div.querySelector('.card-title').focus();
+    }
+
+    function removeCard(btn) {
+      if (confirm('Remove this card?')) btn.closest('.card').remove();
+    }
+
+    // Badge picker
+    let activeBadgeEl = null;
+    function openBadgePicker(el) {
+      activeBadgeEl = el;
+      document.getElementById('badge-modal').classList.add('open');
+    }
+    function closeBadgePicker(e) {
+      if (e.target === document.getElementById('badge-modal')) {
+        document.getElementById('badge-modal').classList.remove('open');
+      }
+    }
+    function setBadge(type, label) {
+      if (!activeBadgeEl) return;
+      const card = activeBadgeEl.closest('.card');
+      activeBadgeEl.className = `badge badge-${type}`;
+      activeBadgeEl.textContent = label;
+      card.className = card.className.replace(/\bcard-(soon|waiting|progress|deadline|radar)\b/g, '').trim();
+      card.classList.add({ soon:'card-soon', waiting:'card-waiting', progress:'card-progress', deadline:'card-deadline', radar:'card-radar' }[type]);
+      document.getElementById('badge-modal').classList.remove('open');
+
+      // Sync the board column — move the linked board item to the matching column
+      const colMap = {
+        deadline: 'board-frontburner',
+        soon:     'board-frontburner',
+        progress: 'board-inprogress',
+        radar:    'board-radar',
+        waiting:  'board-waiting'
+      };
+      const cardId = card.id;
+      if (cardId) {
+        const boardLink = document.querySelector(`a.board-link[href="#${cardId}"]`);
+        if (boardLink) {
+          const boardItem = boardLink.closest('.board-item');
+          const targetListId = colMap[type];
+          const targetList = document.getElementById(targetListId);
+          if (boardItem && targetList && !targetList.contains(boardItem)) {
+            targetList.appendChild(boardItem);
+          }
+        }
+      }
+    }
+
+    // Sort cards by priority then alphabetically within same badge
+    function sortCards() {
+      const container = document.getElementById('cards-container');
+      const cards = Array.from(container.querySelectorAll('.card'));
+
+      cards.sort((a, b) => {
+        const badgeA = a.querySelector('.card-top .badge');
+        const badgeB = b.querySelector('.card-top .badge');
+
+        // Determine badge type from class
+        const getType = el => {
+          if (!el) return 99;
+          const cls = el.className;
+          if (cls.includes('badge-deadline')) return 0;
+          if (cls.includes('badge-soon'))     return 1;
+          if (cls.includes('badge-progress')) return 2;
+          if (cls.includes('badge-radar'))    return 3;
+          if (cls.includes('badge-waiting'))  return 4;
+          return 5;
+        };
+
+        const typeA = getType(badgeA);
+        const typeB = getType(badgeB);
+
+        if (typeA !== typeB) return typeA - typeB;
+
+        // Same badge type — sort alphabetically by card title
+        const titleA = (a.querySelector('.card-title') || {}).textContent.trim().toLowerCase();
+        const titleB = (b.querySelector('.card-title') || {}).textContent.trim().toLowerCase();
+        return titleA.localeCompare(titleB);
+      });
+
+      // Re-append in sorted order
+      cards.forEach(card => container.appendChild(card));
+    }
+
+    // Save & Export — clones the DOM so we never mutate the live page
+    function saveDashboard() {
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+      const stamp = `Last updated: ${dateStr} &nbsp;·&nbsp; Managed with Claude`;
+      document.getElementById('footer').innerHTML = stamp;
+      document.getElementById('subtitle').innerHTML = stamp;
+
+      // Clone the full document
+      const clone = document.documentElement.cloneNode(true);
+
+      // Explicitly copy done class from live steps to cloned steps
+      // (cloneNode copies the DOM at call time, but class changes from JS need to be re-applied)
+      document.querySelectorAll('.step').forEach((liveStep, i) => {
+        const cloneSteps = clone.querySelectorAll('.step');
+        if (cloneSteps[i]) {
+          if (liveStep.classList.contains('done')) {
+            cloneSteps[i].classList.add('done');
+          } else {
+            cloneSteps[i].classList.remove('done');
+          }
+        }
+      });
+
+      // Remove only the edit hint tooltip — all interactive controls are preserved
+      clone.querySelectorAll('.edit-hint').forEach(el => el.remove());
+
+      const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+
+      const blob = new Blob([html], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = '_WORK-DASHBOARD.html';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    // Title sync — keep board link text in sync with card title when typed
+    function syncBoardLink(cardId, newTitle) {
+      document.querySelectorAll(`a.board-link[href="#${cardId}"]`).forEach(link => {
+        link.textContent = newTitle || 'Untitled';
+      });
+    }
+
+    // Wire up title sync for all existing cards on page load
+    document.querySelectorAll('.card[id]').forEach(card => {
+      const cardId = card.id;
+      const titleEl = card.querySelector('.card-title');
+      if (titleEl) {
+        titleEl.addEventListener('input', () => syncBoardLink(cardId, titleEl.textContent.trim()));
+      }
+    });
