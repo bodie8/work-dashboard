@@ -94,8 +94,11 @@
       const div = document.createElement('div');
       div.className = 'board-item';
       div.innerHTML = `
-        <span contenteditable="true">New item</span>
-        <div class="sub" contenteditable="true">Details</div>
+        <span class="drag-grip" title="Drag to reorder">⠿</span>
+        <div class="board-item-content">
+          <span contenteditable="true">New item</span>
+          <div class="sub" contenteditable="true">Details</div>
+        </div>
         <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">&times;</span>
       `;
       list.appendChild(div);
@@ -145,10 +148,11 @@
       boardDiv.className = 'board-item';
       boardDiv.innerHTML = `
         <span class="drag-grip" title="Drag to reorder">⠿</span>
-        <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">&times;</span>
-        <span class="drag-grip" title="Drag to reorder">⠿</span>
+        <div class="board-item-content">
           <a href="#${cardId}" class="board-link" contenteditable="false">New Project</a>
-        <div class="sub" contenteditable="true">New card — see details below</div>
+          <div class="sub" contenteditable="true">New card — see details below</div>
+        </div>
+        <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">&times;</span>
       `;
       list.appendChild(boardDiv);
 
@@ -296,7 +300,7 @@
     }
 
     // GitHub config — update these two values to match your repo
-    const GITHUB_USER = 'bodie8';
+    const GITHUB_USER = 'YOUR_GITHUB_USERNAME';
     const GITHUB_REPO = 'work-dashboard';
     const GITHUB_FILE = 'index.html';
     const GITHUB_BRANCH = 'main';
