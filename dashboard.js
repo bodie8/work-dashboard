@@ -171,6 +171,7 @@
       const div = document.createElement('div');
       div.className = 'backlog-item';
       div.innerHTML = `
+        <span class="backlog-grip" title="Drag to reorder">⠿</span>
         <span contenteditable="true">New item</span>
         <span class="backlog-item-controls" onclick="if(confirm('Remove this item?')) this.closest('.backlog-item').remove()" title="Remove">&times;</span>
       `;
