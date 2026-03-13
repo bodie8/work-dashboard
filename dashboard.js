@@ -300,7 +300,7 @@
     }
 
     // GitHub config — update these two values to match your repo
-    const GITHUB_USER = 'YOUR_GITHUB_USERNAME';
+    const GITHUB_USER = 'bodie8';
     const GITHUB_REPO = 'work-dashboard';
     const GITHUB_FILE = 'index.html';
     const GITHUB_BRANCH = 'main';
