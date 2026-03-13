@@ -1,6 +1,6 @@
 const GITHUB_USER = 'bodie8';
 const GITHUB_REPO = 'work-dashboard';
-const GITHUB_FILE = 'prebuilt-courses/prebuilt.html';
+const GITHUB_FILE = 'prebuilt.html';
 const GITHUB_BRANCH = 'main';
 
 let cardCounter = 0;
