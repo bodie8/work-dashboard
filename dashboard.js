@@ -295,19 +295,38 @@
       cards.forEach(card => container.appendChild(card));
     }
 
-    // Save & Export — clones the DOM so we never mutate the live page
-    function saveDashboard() {
+    // GitHub config — update these two values to match your repo
+    const GITHUB_USER = 'bodie8';
+    const GITHUB_REPO = 'work-dashboard';
+    const GITHUB_FILE = 'index.html';
+    const GITHUB_BRANCH = 'main';
+
+    // Get or prompt for token, stored in localStorage
+    function getToken() {
+      let token = localStorage.getItem('gh_dashboard_token');
+      if (!token) {
+        token = prompt('Enter your GitHub Personal Access Token:\n(It will be saved in your browser — never shared)');
+        if (token) localStorage.setItem('gh_dashboard_token', token.trim());
+      }
+      return token ? token.trim() : null;
+    }
+
+    function clearToken() {
+      localStorage.removeItem('gh_dashboard_token');
+      alert('Token cleared. You will be prompted again on next save.');
+    }
+
+    // Build the HTML to save
+    function buildHTML() {
       const now = new Date();
       const dateStr = now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
       const stamp = `Last updated: ${dateStr} &nbsp;·&nbsp; Managed with Claude`;
       document.getElementById('footer').innerHTML = stamp;
       document.getElementById('subtitle').innerHTML = stamp;
 
-      // Clone the full document
       const clone = document.documentElement.cloneNode(true);
 
-      // Explicitly copy done class from live steps to cloned steps
-      // (cloneNode copies the DOM at call time, but class changes from JS need to be re-applied)
+      // Preserve done state on steps
       document.querySelectorAll('.step').forEach((liveStep, i) => {
         const cloneSteps = clone.querySelectorAll('.step');
         if (cloneSteps[i]) {
@@ -319,17 +338,65 @@
         }
       });
 
-      // Remove only the edit hint tooltip — all interactive controls are preserved
       clone.querySelectorAll('.edit-hint').forEach(el => el.remove());
+      return '<!DOCTYPE html>\n' + clone.outerHTML;
+    }
 
-      const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+    // Save to GitHub via API
+    async function saveDashboard() {
+      const token = getToken();
+      if (!token) return;
 
-      const blob = new Blob([html], { type: 'text/html' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = '_WORK-DASHBOARD.html';
-      a.click();
-      URL.revokeObjectURL(a.href);
+      const saveBtn = document.querySelector('.btn-save');
+      saveBtn.textContent = 'Saving…';
+      saveBtn.disabled = true;
+
+      try {
+        const apiBase = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`;
+        const headers = {
+          'Authorization': `token ${token}`,
+          'Content-Type': 'application/json'
+        };
+
+        // Get current file SHA (required for updates)
+        const getRes = await fetch(`${apiBase}?ref=${GITHUB_BRANCH}`, { headers });
+        if (!getRes.ok) throw new Error(`Could not fetch file: ${getRes.status} ${getRes.statusText}`);
+        const fileData = await getRes.json();
+        const sha = fileData.sha;
+
+        // Encode content as base64
+        const html = buildHTML();
+        const encoded = btoa(unescape(encodeURIComponent(html)));
+
+        // Commit updated file
+        const putRes = await fetch(apiBase, {
+          method: 'PUT',
+          headers,
+          body: JSON.stringify({
+            message: `Dashboard update ${new Date().toLocaleString()}`,
+            content: encoded,
+            sha,
+            branch: GITHUB_BRANCH
+          })
+        });
+
+        if (!putRes.ok) {
+          const err = await putRes.json();
+          throw new Error(err.message || putRes.statusText);
+        }
+
+        saveBtn.textContent = 'Saved ✓';
+        setTimeout(() => {
+          saveBtn.textContent = 'Save';
+          saveBtn.disabled = false;
+        }, 3000);
+
+      } catch (err) {
+        console.error(err);
+        alert(`Save failed: ${err.message}\n\nIf your token is invalid, click OK then use "Reset Token" to re-enter it.`);
+        saveBtn.textContent = 'Save';
+        saveBtn.disabled = false;
+      }
     }
 
     // Title sync — keep board link text in sync with card title when typed

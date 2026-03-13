@@ -44,6 +44,7 @@
     .btn:hover { opacity: 0.82; }
     .btn-sort { background: #f0f2f5; color: #555; }
     .btn-save { background: #1a1a2e; color: white; }
+    .btn-reset-token { background: #f0f2f5; color: #aaa; font-weight: 400; }
 
 
     /* Section labels */
