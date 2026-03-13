@@ -128,13 +128,13 @@
     }
 
     .add-card-detail {
-      font-size: 0.75rem;
-      color: #ddd;
+      font-size: 0.72rem;
+      color: #bbb;
       cursor: pointer;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
       display: inline-block;
     }
-    .add-card-detail:hover { color: #aaa; }
+    .add-card-detail:hover { color: #777; }
 
     .steps { list-style: none; }
 
@@ -196,13 +196,13 @@
     .step.done .step-detail { opacity: 0.4; text-decoration: line-through; }
 
     .add-detail {
-      font-size: 0.75rem;
-      color: #ddd;
+      font-size: 0.72rem;
+      color: #bbb;
       cursor: pointer;
       margin-top: 3px;
       display: inline-block;
     }
-    .add-detail:hover { color: #aaa; }
+    .add-detail:hover { color: #777; }
 
     .detail-row {
       display: flex;
