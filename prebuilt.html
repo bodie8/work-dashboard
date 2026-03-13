@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PreBuilt Courses Workflow</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+  <style>
+    /* loaded from prebuilt.css */
+  </style>
+  <link rel="stylesheet" href="prebuilt.css" />
+</head>
+<body>
+
+  <div class="toolbar">
+    <div class="page-header">
+      <h1>PreBuilt Courses Workflow</h1>
+      <div class="subtitle" id="subtitle">Managed with Claude</div>
+    </div>
+    <div class="toolbar-actions">
+      <button class="btn btn-reset-token" onclick="resetToken()">Reset Token</button>
+      <button class="btn btn-save" onclick="savePage()">Save</button>
+    </div>
+  </div>
+
+  <p class="edit-hint">Click any text to edit. Drag ⠿ to reorder steps. Click step number to mark complete.</p>
+
+  <div class="card" id="card-prebuilt">
+    <div class="card-header">
+      <div class="card-title" contenteditable="true">PreBuilt Courses Workflow</div>
+    </div>
+    <div class="card-meta" contenteditable="true">Est. total: TBD</div>
+
+    <ul class="steps" id="steps-prebuilt">
+
+      <li class="step">
+        <span class="drag-grip" title="Drag to reorder">⠿</span>
+        <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
+        <div class="step-body">
+          <div class="step-text" contenteditable="true">Review course outline and source materials</div>
+        </div>
+        <div class="step-time" contenteditable="true">30 min</div>
+        <div class="step-controls">
+          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">&times;</span>
+        </div>
+      </li>
+
+      <li class="step">
+        <span class="drag-grip" title="Drag to reorder">⠿</span>
+        <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">2</div>
+        <div class="step-body">
+          <div class="step-text" contenteditable="true">Set up Canvas course shell</div>
+        </div>
+        <div class="step-time" contenteditable="true">20 min</div>
+        <div class="step-controls">
+          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">&times;</span>
+        </div>
+      </li>
+
+      <li class="step">
+        <span class="drag-grip" title="Drag to reorder">⠿</span>
+        <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div>
+        <div class="step-body">
+          <div class="step-text" contenteditable="true">Import and organize content modules</div>
+        </div>
+        <div class="step-time" contenteditable="true">1 hr</div>
+        <div class="step-controls">
+          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">&times;</span>
+        </div>
+      </li>
+
+      <li class="step">
+        <span class="drag-grip" title="Drag to reorder">⠿</span>
+        <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">4</div>
+        <div class="step-body">
+          <div class="step-text" contenteditable="true">Accessibility review</div>
+        </div>
+        <div class="step-time" contenteditable="true">45 min</div>
+        <div class="step-controls">
+          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">&times;</span>
+        </div>
+      </li>
+
+      <li class="step">
+        <span class="drag-grip" title="Drag to reorder">⠿</span>
+        <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">5</div>
+        <div class="step-body">
+          <div class="step-text" contenteditable="true">Faculty review and sign-off</div>
+        </div>
+        <div class="step-time" contenteditable="true">TBD</div>
+        <div class="step-controls">
+          <span class="step-delete" onclick="deleteStep(this)" title="Remove step">&times;</span>
+        </div>
+      </li>
+
+    </ul>
+
+    <div class="add-step" onclick="addStep('steps-prebuilt')">+ Add step</div>
+  </div>
+
+  <div class="footer" id="footer">Managed with Claude</div>
+
+  <script src="prebuilt.js"></script>
+
+</body>
+</html>
