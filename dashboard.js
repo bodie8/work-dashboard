@@ -394,12 +394,16 @@
           saveBtn.textContent = 'Save';
           saveBtn.disabled = false;
         }, 3000);
+        return;
 
       } catch (err) {
         console.error(err);
         alert(`Save failed: ${err.message}\n\nIf your token is invalid, click OK then use "Reset Token" to re-enter it.`);
-        saveBtn.textContent = 'Save';
-        saveBtn.disabled = false;
+      } finally {
+        if (saveBtn.textContent === 'Saving…') {
+          saveBtn.textContent = 'Save';
+          saveBtn.disabled = false;
+        }
       }
     }
 
