@@ -5,18 +5,29 @@
   <title>Work Dashboard — Chris</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
   <link rel="stylesheet" href="dashboard.css">
-</head>
+<style type="text/css" id="ctre_styles">
+			#ctre_wnd {
+				position: fixed; bottom: 0; right: 10px;
+				background: #fff; box-shadow: 0px 0px 40px rgba(0,0,0,0.15);
+				border-radius: 3px 3px 0 0;
+				z-index: 2147483647;
+			}
+
+			@media (prefers-color-scheme: dark) {
+				#ctre_wnd { background: #000; box-shadow: 0px 0px 40px rgba(255,255,255,0.15); }
+			}
+			</style></head>
 <body>
 
   <div class="toolbar">
     <div class="page-header">
       <h1>Work Dashboard</h1>
-      <div class="subtitle" id="subtitle">Last updated: March 12, 2026 &nbsp;·&nbsp; Managed with Claude</div>
+      <div class="subtitle" id="subtitle">Last updated: March 13, 2026 &nbsp;·&nbsp; Managed with Claude</div>
     </div>
     <div class="toolbar-actions">
       <button class="btn btn-sort" onclick="sortCards()">Sort Cards</button>
       <button class="btn btn-reset-token" onclick="clearToken()">Reset Token</button>
-      <button class="btn btn-save" onclick="saveDashboard()">Save</button>
+      <button class="btn btn-save" onclick="saveDashboard()" disabled="">Saving…</button>
     </div>
   </div>
 
@@ -149,7 +160,7 @@
         <div class="board-item">
           <span class="drag-grip" title="Drag to reorder">⠿</span>
           <div class="board-item-content">
-            <span contenteditable="true">ORT differentiation info</span>
+            <span contenteditable="true">ORT faculty section info</span>
             <div class="sub" contenteditable="true">Need info from SW, Instruction</div>
           </div>
           <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
@@ -764,7 +775,7 @@
 
   </div>
 
-  <div class="footer" id="footer">Last updated: March 12, 2026 &nbsp;·&nbsp; Managed with Claude</div>
+  <div class="footer" id="footer">Last updated: March 13, 2026 &nbsp;·&nbsp; Managed with Claude</div>
 
   <!-- ADD TYPE MODAL -->
   <div class="modal-overlay" id="add-type-modal" onclick="if(event.target===this) this.classList.remove('open')" data-list-id="board-frontburner">
@@ -795,4 +806,4 @@
 
 
 
-</body></html>
+<div id="give-freely-root-bcjindcccaagfpapjjmafapmmgkkhgoa" class="give-freely-root" data-extension-id="bcjindcccaagfpapjjmafapmmgkkhgoa" data-extension-name="JSON Formatter" style="display: block;"></div></body></html>
