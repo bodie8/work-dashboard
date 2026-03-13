@@ -5,18 +5,29 @@
   <title>Work Dashboard — Chris</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
   <link rel="stylesheet" href="dashboard.css">
-</head>
+<style type="text/css" id="ctre_styles">
+			#ctre_wnd {
+				position: fixed; bottom: 0; right: 10px;
+				background: #fff; box-shadow: 0px 0px 40px rgba(0,0,0,0.15);
+				border-radius: 3px 3px 0 0;
+				z-index: 2147483647;
+			}
+
+			@media (prefers-color-scheme: dark) {
+				#ctre_wnd { background: #000; box-shadow: 0px 0px 40px rgba(255,255,255,0.15); }
+			}
+			</style></head>
 <body>
 
   <div class="toolbar">
     <div class="page-header">
       <h1>Work Dashboard</h1>
-      <div class="subtitle" id="subtitle">Last updated: March 12, 2026 &nbsp;·&nbsp; Managed with Claude</div>
+      <div class="subtitle" id="subtitle">Last updated: March 13, 2026 &nbsp;·&nbsp; Managed with Claude</div>
     </div>
     <div class="toolbar-actions">
       <button class="btn btn-sort" onclick="sortCards()">Sort Cards</button>
       <button class="btn btn-reset-token" onclick="clearToken()">Reset Token</button>
-      <button class="btn btn-save" onclick="saveDashboard()">Save</button>
+      <button class="btn btn-save" onclick="saveDashboard()" disabled="">Saving…</button>
     </div>
   </div>
 
@@ -305,7 +316,7 @@
         </div>
         <div class="card-meta" contenteditable="true">Est. total: TBD</div>
         <ul class="steps" id="steps-new-101">
-          <li class="step">
+          <li class="step done">
             <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
           <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
             <div class="step-body">
@@ -314,7 +325,7 @@
             <div class="step-time" contenteditable="true">TBD</div>
             <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
           </li>
-        <li class="step" draggable="false" style="">
+        <li class="step done" draggable="false" style="">
         <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
           <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">2</div>
         <div class="step-body">
@@ -322,7 +333,7 @@
         </div>
         <div class="step-time" contenteditable="true">TBD</div>
         <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
-      </li><li class="step" style="">
+      </li><li class="step done" style="">
         <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
           <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div>
         <div class="step-body">
@@ -733,7 +744,7 @@
 
   </div>
 
-  <div class="footer" id="footer">Last updated: March 12, 2026 &nbsp;·&nbsp; Managed with Claude</div>
+  <div class="footer" id="footer">Last updated: March 13, 2026 &nbsp;·&nbsp; Managed with Claude</div>
 
   <!-- ADD TYPE MODAL -->
   <div class="modal-overlay" id="add-type-modal" onclick="if(event.target===this) this.classList.remove('open')" data-list-id="board-frontburner">
@@ -764,4 +775,4 @@
 
 
 
-</body></html>
+<div id="give-freely-root-bcjindcccaagfpapjjmafapmmgkkhgoa" class="give-freely-root" data-extension-id="bcjindcccaagfpapjjmafapmmgkkhgoa" data-extension-name="JSON Formatter" style="display: block;"></div></body></html>
