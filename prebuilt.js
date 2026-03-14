@@ -218,6 +218,13 @@ function buildHTML() {
   clone.querySelectorAll('.sortable-ghost').forEach(function(el) { el.classList.remove('sortable-ghost'); });
   clone.querySelectorAll('.edit-hint').forEach(function(el) { el.remove(); });
 
+  // Always save the button in its resting state
+  var cloneSaveBtn = clone.querySelector('.btn-save');
+  if (cloneSaveBtn) {
+    cloneSaveBtn.textContent = 'Save';
+    cloneSaveBtn.disabled = false;
+  }
+
   return '<!DOCTYPE html>\n' + clone.outerHTML;
 }
 

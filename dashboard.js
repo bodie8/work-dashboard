@@ -374,6 +374,13 @@
       // Remove UI-only elements that should not persist
       clone.querySelectorAll('.edit-hint').forEach(el => el.remove());
 
+      // Always save the button in its resting state
+      const cloneSaveBtn = clone.querySelector('.btn-save');
+      if (cloneSaveBtn) {
+        cloneSaveBtn.textContent = 'Save';
+        cloneSaveBtn.disabled = false;
+      }
+
       return '<!DOCTYPE html>\n' + clone.outerHTML;
     }
 
