@@ -103,7 +103,14 @@
           </div>
           <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
         </div>
-      </div>
+      <div class="board-item">
+        <span class="drag-grip" title="Drag to reorder">⠿</span>
+        <div class="board-item-content">
+          <a href="#card-new-105" class="board-link" contenteditable="false">Impact Messages</a>
+          <div class="sub" contenteditable="true">New card — see details below</div>
+        </div>
+        <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
+      </div></div>
       <div class="add-row" onclick="addBoardItem('board-inprogress')">+ Add item</div>
     </div>
 
@@ -404,6 +411,26 @@
         <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
       </li></ul>
         <div class="add-step" onclick="addStep('steps-new-101')">+ Add step</div>
+      </div><div class="card card-progress" id="card-new-105">
+        <div class="card-top">
+          <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
+        <div class="card-title" contenteditable="true">Impact Messages</div>
+          <div class="badge badge-progress" onclick="openBadgePicker(this)">In Progress</div>
+          <span class="card-controls" onclick="removeCard(this)" title="Remove card">×</span>
+        </div>
+        <div class="card-meta" contenteditable="true">Est. total: TBD</div>
+        <ul class="steps" id="steps-new-105">
+          <li class="step">
+            <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
+            <div class="step-body">
+              <div class="step-text" contenteditable="true">Accessibility TIPS</div>
+            </div>
+            <div class="step-time" contenteditable="true">TBD</div>
+            <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+          </li>
+        </ul>
+        <div class="add-step" onclick="addStep('steps-new-105')">+ Add step</div>
       </div><div class="card card-progress" id="card-lms-admin">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
@@ -864,7 +891,7 @@
   <div class="footer" id="footer">Last updated: March 16, 2026 &nbsp;·&nbsp; Managed with Claude</div>
 
   <!-- ADD TYPE MODAL -->
-  <div class="modal-overlay" id="add-type-modal" onclick="if(event.target===this) this.classList.remove('open')" data-list-id="board-radar">
+  <div class="modal-overlay" id="add-type-modal" onclick="if(event.target===this) this.classList.remove('open')" data-list-id="board-inprogress">
     <div class="modal">
       <h3>What would you like to add?</h3>
       <div class="badge-options">
