@@ -22,7 +22,7 @@
   <div class="toolbar">
     <div class="page-header">
       <h1>Work Dashboard</h1>
-      <div class="subtitle" id="subtitle">Last updated: March 13, 2026 &nbsp;·&nbsp; Managed with Claude</div>
+      <div class="subtitle" id="subtitle">Last updated: March 16, 2026 &nbsp;·&nbsp; Managed with Claude</div>
     </div>
     <div class="toolbar-actions">
       <button class="btn btn-sort" onclick="sortCards()">Sort Cards</button>
@@ -118,6 +118,7 @@
           </div>
           <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
         </div>
+        
         <div class="board-item">
           <span class="drag-grip" title="Drag to reorder">⠿</span>
           <div class="board-item-content">
@@ -125,8 +126,14 @@
             <div class="sub" contenteditable="true">Coming — prepare to communicate</div>
           </div>
           <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
+        </div><div class="board-item">
+        <span class="drag-grip" title="Drag to reorder">⠿</span>
+        <div class="board-item-content">
+          <a href="#card-new-103" class="board-link" contenteditable="false">ORT/DET Updates</a>
+          <div class="sub" contenteditable="true">New card — see details below</div>
         </div>
-        <div class="board-item">
+        <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
+      </div><div class="board-item">
           <span class="drag-grip" title="Drag to reorder">⠿</span>
           <div class="board-item-content">
             <a href="#card-new-quizzes" class="board-link">New Quizzes</a>
@@ -134,14 +141,7 @@
           </div>
           <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
         </div>
-      <div class="board-item">
-        <span class="drag-grip" title="Drag to reorder">⠿</span>
-        <div class="board-item-content">
-          <a href="#card-new-103" class="board-link" contenteditable="false">ORT/DET Updates</a>
-          <div class="sub" contenteditable="true">New card — see details below</div>
-        </div>
-        <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
-      </div></div>
+      </div>
       <div class="add-row" onclick="addBoardItem('board-radar')">+ Add item</div>
     </div>
 
@@ -802,7 +802,7 @@
 
   </div>
 
-  <div class="footer" id="footer">Last updated: March 13, 2026 &nbsp;·&nbsp; Managed with Claude</div>
+  <div class="footer" id="footer">Last updated: March 16, 2026 &nbsp;·&nbsp; Managed with Claude</div>
 
   <!-- ADD TYPE MODAL -->
   <div class="modal-overlay" id="add-type-modal" onclick="if(event.target===this) this.classList.remove('open')" data-list-id="board-radar">
@@ -833,4 +833,5 @@
 
 
 
-<div id="give-freely-root-bcjindcccaagfpapjjmafapmmgkkhgoa" class="give-freely-root" data-extension-id="bcjindcccaagfpapjjmafapmmgkkhgoa" data-extension-name="JSON Formatter" style="display: block;"></div></body></html>
+<div id="give-freely-root-bcjindcccaagfpapjjmafapmmgkkhgoa" class="give-freely-root" data-extension-id="bcjindcccaagfpapjjmafapmmgkkhgoa" data-extension-name="JSON Formatter" style="display: block;"></div>
+</body></html>
