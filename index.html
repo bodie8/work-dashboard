@@ -141,7 +141,14 @@
           </div>
           <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
         </div>
-      </div>
+      <div class="board-item">
+        <span class="drag-grip" title="Drag to reorder">⠿</span>
+        <div class="board-item-content">
+          <a href="#card-new-104" class="board-link" contenteditable="false">TMI Web Site Migration</a>
+          <div class="sub" contenteditable="true">New card — see details below</div>
+        </div>
+        <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
+      </div></div>
       <div class="add-row" onclick="addBoardItem('board-radar')">+ Add item</div>
     </div>
 
@@ -622,7 +629,79 @@
         </li>
       </ul>
       <div class="add-step" onclick="addStep('steps-new-quizzes')">+ Add step</div>
-    </div><div class="card card-waiting" id="card-badges">
+    </div><div class="card card-radar" id="card-new-103">
+        <div class="card-top">
+          <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
+        <div class="card-title" contenteditable="true">ORT/DET Updates</div>
+          <div class="badge badge-radar" onclick="openBadgePicker(this)">On the Radar</div>
+          <span class="card-controls" onclick="removeCard(this)" title="Remove card">×</span>
+        </div>
+        <div class="card-meta" contenteditable="true">Est. total: TBD</div>
+        <ul class="steps" id="steps-new-103">
+          <li class="step">
+            <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
+            <div class="step-body">
+              <div class="step-text" contenteditable="true">Review and update CSS.</div>
+            </div>
+            <div class="step-time" contenteditable="true">TBD</div>
+            <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+          </li>
+        </ul>
+        <div class="add-step" onclick="addStep('steps-new-103')">+ Add step</div>
+      </div><div class="card card-radar" id="card-new-104">
+        <div class="card-top">
+          <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
+        <div class="card-title" contenteditable="true">TMI Web Site Migration</div>
+          <div class="badge badge-radar" onclick="openBadgePicker(this)">On the Radar</div>
+          <span class="card-controls" onclick="removeCard(this)" title="Remove card">×</span>
+        </div>
+        <div class="card-meta" contenteditable="true">Est. total: TBD</div>
+        <ul class="steps" id="steps-new-104">
+          <li class="step">
+            <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
+            <div class="step-body">
+              <div class="step-text" contenteditable="true">Learn Cascade, test pages, etc</div>
+            </div>
+            <div class="step-time" contenteditable="true">TBD</div>
+            <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+          </li>
+        <li class="step">
+        <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">2</div>
+        <div class="step-body">
+          <div class="step-text" contenteditable="true">Draft site structure</div>
+        </div>
+        <div class="step-time" contenteditable="true">TBD</div>
+        <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+      </li><li class="step">
+        <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div>
+        <div class="step-body">
+          <div class="step-text" contenteditable="true">Draft page layouts</div>
+        </div>
+        <div class="step-time" contenteditable="true">TBD</div>
+        <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+      </li><li class="step">
+        <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">4</div>
+        <div class="step-body">
+          <div class="step-text" contenteditable="true">Determine events migration (?)</div>
+        </div>
+        <div class="step-time" contenteditable="true">TBD</div>
+        <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+      </li><li class="step">
+        <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">5</div>
+        <div class="step-body">
+          <div class="step-text" contenteditable="true">Retain WP KB?</div>
+        </div>
+        <div class="step-time" contenteditable="true">TBD</div>
+        <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+      </li></ul>
+        <div class="add-step" onclick="addStep('steps-new-104')">+ Add step</div>
+      </div><div class="card card-waiting" id="card-badges">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">Parchment Badges</div>
@@ -689,27 +768,7 @@
         </li>
       </ul>
       <div class="add-step" onclick="addStep('steps-qikr')">+ Add step</div>
-    </div><div class="card card-radar" id="card-new-103">
-        <div class="card-top">
-          <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
-        <div class="card-title" contenteditable="true">ORT/DET Updates</div>
-          <div class="badge badge-radar" onclick="openBadgePicker(this)">On the Radar</div>
-          <span class="card-controls" onclick="removeCard(this)" title="Remove card">×</span>
-        </div>
-        <div class="card-meta" contenteditable="true">Est. total: TBD</div>
-        <ul class="steps" id="steps-new-103">
-          <li class="step">
-            <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
-          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
-            <div class="step-body">
-              <div class="step-text" contenteditable="true">Review and update CSS.</div>
-            </div>
-            <div class="step-time" contenteditable="true">TBD</div>
-            <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
-          </li>
-        </ul>
-        <div class="add-step" onclick="addStep('steps-new-103')">+ Add step</div>
-      </div></div>
+    </div></div>
 
   <!-- BACKLOG -->
   <div class="section-label">Backlog — Chip Away When Front Burner is Clear</div>
