@@ -94,11 +94,8 @@
       const div = document.createElement('div');
       div.className = 'board-item';
       div.innerHTML = `
-        <span class="drag-grip" title="Drag to reorder">⠿</span>
-        <div class="board-item-content">
-          <span contenteditable="true">New item</span>
-          <div class="sub" contenteditable="true">Details</div>
-        </div>
+        <span contenteditable="true">New item</span>
+        <div class="sub" contenteditable="true">Details</div>
         <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">&times;</span>
       `;
       list.appendChild(div);
@@ -148,11 +145,10 @@
       boardDiv.className = 'board-item';
       boardDiv.innerHTML = `
         <span class="drag-grip" title="Drag to reorder">⠿</span>
-        <div class="board-item-content">
-          <a href="#${cardId}" class="board-link" contenteditable="false">New Project</a>
-          <div class="sub" contenteditable="true">New card — see details below</div>
-        </div>
         <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">&times;</span>
+        <span class="drag-grip" title="Drag to reorder">⠿</span>
+          <a href="#${cardId}" class="board-link" contenteditable="false">New Project</a>
+        <div class="sub" contenteditable="true">New card — see details below</div>
       `;
       list.appendChild(boardDiv);
 
@@ -171,7 +167,6 @@
       const div = document.createElement('div');
       div.className = 'backlog-item';
       div.innerHTML = `
-        <span class="backlog-grip" title="Drag to reorder">⠿</span>
         <span contenteditable="true">New item</span>
         <span class="backlog-item-controls" onclick="if(confirm('Remove this item?')) this.closest('.backlog-item').remove()" title="Remove">&times;</span>
       `;
@@ -322,10 +317,6 @@
     }
 
     // Build the HTML to save
-    // Cached SHA from last successful save — avoids extra fetch on rapid saves
-    let cachedSha = null;
-    let isSaving = false;
-
     function buildHTML() {
       const now = new Date();
       const dateStr = now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
@@ -335,62 +326,27 @@
 
       const clone = document.documentElement.cloneNode(true);
 
-      // Sync all contenteditable innerHTML from live DOM into clone
-      // (cloneNode captures structure but browsers may not reflect live edits)
-      const liveEditables = document.querySelectorAll('[contenteditable]');
-      const cloneEditables = clone.querySelectorAll('[contenteditable]');
-      liveEditables.forEach((el, i) => {
-        if (cloneEditables[i]) cloneEditables[i].innerHTML = el.innerHTML;
-      });
-
-      // Sync .done class on steps by matching card ID + step index
-      document.querySelectorAll('.card').forEach(liveCard => {
-        const cardId = liveCard.id;
-        if (!cardId) return;
-        const cloneCard = clone.querySelector('#' + cardId);
-        if (!cloneCard) return;
-        const liveSteps = liveCard.querySelectorAll('.step');
-        const cloneSteps = cloneCard.querySelectorAll('.step');
-        liveSteps.forEach((liveStep, i) => {
-          if (!cloneSteps[i]) return;
+      // Preserve done state on steps
+      document.querySelectorAll('.step').forEach((liveStep, i) => {
+        const cloneSteps = clone.querySelectorAll('.step');
+        if (cloneSteps[i]) {
           if (liveStep.classList.contains('done')) {
             cloneSteps[i].classList.add('done');
           } else {
             cloneSteps[i].classList.remove('done');
           }
-        });
+        }
       });
 
-      // Clean up SortableJS artifacts
-      clone.querySelectorAll('[draggable="false"]').forEach(el => el.removeAttribute('draggable'));
-      clone.querySelectorAll('[contenteditable="false"]').forEach(el => {
-        // Only remove if it was not originally set (board-links are intentionally false)
-        if (!el.classList.contains('board-link')) el.removeAttribute('contenteditable');
-      });
-      clone.querySelectorAll('.sortable-ghost').forEach(el => el.classList.remove('sortable-ghost'));
-      // Strip empty style attributes left by SortableJS
-      clone.querySelectorAll('[style=""]').forEach(el => el.removeAttribute('style'));
-
-      // Remove UI-only elements that should not persist
       clone.querySelectorAll('.edit-hint').forEach(el => el.remove());
-
-      // Always save the button in its resting state
-      const cloneSaveBtn = clone.querySelector('.btn-save');
-      if (cloneSaveBtn) {
-        cloneSaveBtn.textContent = 'Save';
-        cloneSaveBtn.disabled = false;
-      }
-
       return '<!DOCTYPE html>\n' + clone.outerHTML;
     }
 
     // Save to GitHub via API
     async function saveDashboard() {
-      if (isSaving) return;
       const token = getToken();
       if (!token) return;
 
-      isSaving = true;
       const saveBtn = document.querySelector('.btn-save');
       saveBtn.textContent = 'Saving…';
       saveBtn.disabled = true;
@@ -402,18 +358,17 @@
           'Content-Type': 'application/json'
         };
 
-        // Use cached SHA if available, otherwise fetch from GitHub
-        let sha = cachedSha;
-        if (!sha) {
-          const getRes = await fetch(`${apiBase}?ref=${GITHUB_BRANCH}`, { headers });
-          if (!getRes.ok) throw new Error(`Could not fetch file: ${getRes.status} ${getRes.statusText}`);
-          const fileData = await getRes.json();
-          sha = fileData.sha;
-        }
+        // Get current file SHA (required for updates)
+        const getRes = await fetch(`${apiBase}?ref=${GITHUB_BRANCH}`, { headers });
+        if (!getRes.ok) throw new Error(`Could not fetch file: ${getRes.status} ${getRes.statusText}`);
+        const fileData = await getRes.json();
+        const sha = fileData.sha;
 
+        // Encode content as base64
         const html = buildHTML();
         const encoded = btoa(unescape(encodeURIComponent(html)));
 
+        // Commit updated file
         const putRes = await fetch(apiBase, {
           method: 'PUT',
           headers,
@@ -426,35 +381,21 @@
         });
 
         if (!putRes.ok) {
-          const errData = await putRes.json();
-          // SHA conflict — clear cache and retry once
-          if (putRes.status === 409) {
-            cachedSha = null;
-            throw new Error('SHA conflict — please try saving again.');
-          }
-          throw new Error(errData.message || putRes.statusText);
+          const err = await putRes.json();
+          throw new Error(err.message || putRes.statusText);
         }
-
-        // Cache the new SHA from the response so next save skips the fetch
-        const putData = await putRes.json();
-        cachedSha = putData.content?.sha || null;
 
         saveBtn.textContent = 'Saved ✓';
         setTimeout(() => {
           saveBtn.textContent = 'Save';
           saveBtn.disabled = false;
-        }, 2500);
+        }, 3000);
 
       } catch (err) {
-        console.error('Save error:', err);
-        alert(`Save failed: ${err.message}\n\nIf your token has expired, use "Reset Token" to re-enter it.`);
-        saveBtn.textContent = 'Error — try again';
-        setTimeout(() => {
-          saveBtn.textContent = 'Save';
-          saveBtn.disabled = false;
-        }, 3000);
-      } finally {
-        isSaving = false;
+        console.error(err);
+        alert(`Save failed: ${err.message}\n\nIf your token is invalid, click OK then use "Reset Token" to re-enter it.`);
+        saveBtn.textContent = 'Save';
+        saveBtn.disabled = false;
       }
     }
 
