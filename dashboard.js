@@ -316,6 +316,10 @@
       alert('Token cleared. You will be prompted again on next save.');
     }
 
+    // Cached SHA and save guard
+    let cachedSha = null;
+    let isSaving = false;
+
     // Build the HTML to save
     function buildHTML() {
       const now = new Date();
@@ -326,27 +330,60 @@
 
       const clone = document.documentElement.cloneNode(true);
 
-      // Preserve done state on steps
-      document.querySelectorAll('.step').forEach((liveStep, i) => {
-        const cloneSteps = clone.querySelectorAll('.step');
-        if (cloneSteps[i]) {
+      // Sync all contenteditable innerHTML from live DOM into clone
+      const liveEditables = document.querySelectorAll('[contenteditable]');
+      const cloneEditables = clone.querySelectorAll('[contenteditable]');
+      liveEditables.forEach((el, i) => {
+        if (cloneEditables[i]) cloneEditables[i].innerHTML = el.innerHTML;
+      });
+
+      // Sync .done class on steps by card ID + index
+      document.querySelectorAll('.card').forEach(liveCard => {
+        const cardId = liveCard.id;
+        if (!cardId) return;
+        const cloneCard = clone.querySelector('#' + cardId);
+        if (!cloneCard) return;
+        const liveSteps = liveCard.querySelectorAll('.step');
+        const cloneSteps = cloneCard.querySelectorAll('.step');
+        liveSteps.forEach((liveStep, i) => {
+          if (!cloneSteps[i]) return;
           if (liveStep.classList.contains('done')) {
             cloneSteps[i].classList.add('done');
           } else {
             cloneSteps[i].classList.remove('done');
           }
-        }
+        });
       });
 
+      // Clean up SortableJS artifacts
+      clone.querySelectorAll('[draggable="false"]').forEach(el => el.removeAttribute('draggable'));
+      clone.querySelectorAll('[contenteditable="false"]').forEach(el => {
+        if (!el.classList.contains('board-link')) el.removeAttribute('contenteditable');
+      });
+      clone.querySelectorAll('.sortable-ghost').forEach(el => el.classList.remove('sortable-ghost'));
+      clone.querySelectorAll('[style=""]').forEach(el => el.removeAttribute('style'));
       clone.querySelectorAll('.edit-hint').forEach(el => el.remove());
+
+      // Strip browser extension injections
+      clone.querySelectorAll('[id^="give-freely"], [class^="give-freely"], #ctre_styles, #ctre_wnd').forEach(el => el.remove());
+
+      // Always save the button in its resting state
+      const cloneSaveBtn = clone.querySelector('.btn-save');
+      if (cloneSaveBtn) {
+        cloneSaveBtn.textContent = 'Save';
+        cloneSaveBtn.disabled = false;
+      }
+
       return '<!DOCTYPE html>\n' + clone.outerHTML;
     }
 
     // Save to GitHub via API
     async function saveDashboard() {
+      if (isSaving) return;
       const token = getToken();
       if (!token) return;
 
+      isSaving = true;
       const saveBtn = document.querySelector('.btn-save');
       saveBtn.textContent = 'Saving…';
       saveBtn.disabled = true;
@@ -358,17 +395,17 @@
           'Content-Type': 'application/json'
         };
 
-        // Get current file SHA (required for updates)
-        const getRes = await fetch(`${apiBase}?ref=${GITHUB_BRANCH}`, { headers });
-        if (!getRes.ok) throw new Error(`Could not fetch file: ${getRes.status} ${getRes.statusText}`);
-        const fileData = await getRes.json();
-        const sha = fileData.sha;
+        let sha = cachedSha;
+        if (!sha) {
+          const getRes = await fetch(`${apiBase}?ref=${GITHUB_BRANCH}`, { headers });
+          if (!getRes.ok) throw new Error(`Could not fetch file: ${getRes.status} ${getRes.statusText}`);
+          const fileData = await getRes.json();
+          sha = fileData.sha;
+        }
 
-        // Encode content as base64
         const html = buildHTML();
         const encoded = btoa(unescape(encodeURIComponent(html)));
 
-        // Commit updated file
         const putRes = await fetch(apiBase, {
           method: 'PUT',
           headers,
@@ -381,21 +418,33 @@
         });
 
         if (!putRes.ok) {
-          const err = await putRes.json();
-          throw new Error(err.message || putRes.statusText);
+          const errData = await putRes.json();
+          if (putRes.status === 409) {
+            cachedSha = null;
+            throw new Error('SHA conflict — please try saving again.');
+          }
+          throw new Error(errData.message || putRes.statusText);
         }
+
+        const putData = await putRes.json();
+        cachedSha = putData.content?.sha || null;
 
         saveBtn.textContent = 'Saved ✓';
         setTimeout(() => {
           saveBtn.textContent = 'Save';
           saveBtn.disabled = false;
-        }, 3000);
+        }, 2500);
 
       } catch (err) {
-        console.error(err);
-        alert(`Save failed: ${err.message}\n\nIf your token is invalid, click OK then use "Reset Token" to re-enter it.`);
-        saveBtn.textContent = 'Save';
-        saveBtn.disabled = false;
+        console.error('Save error:', err);
+        alert(`Save failed: ${err.message}\n\nIf your token has expired, use "Reset Token" to re-enter it.`);
+        saveBtn.textContent = 'Error — try again';
+        setTimeout(() => {
+          saveBtn.textContent = 'Save';
+          saveBtn.disabled = false;
+        }, 3000);
+      } finally {
+        isSaving = false;
       }
     }
 
