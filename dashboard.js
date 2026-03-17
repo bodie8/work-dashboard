@@ -259,36 +259,44 @@
       }
     }
 
-    // Sort cards by priority then alphabetically within same badge
+    // Sort cards by status priority, then by overview board order within each status
     function sortCards() {
       const container = document.getElementById('cards-container');
       const cards = Array.from(container.querySelectorAll('.card'));
 
+      // Determine badge status priority
+      const getType = el => {
+        if (!el) return 99;
+        const cls = el.className;
+        if (cls.includes('badge-deadline')) return 0;
+        if (cls.includes('badge-soon'))     return 1;
+        if (cls.includes('badge-progress')) return 2;
+        if (cls.includes('badge-radar'))    return 3;
+        if (cls.includes('badge-waiting'))  return 4;
+        return 5;
+      };
+
+      // Build an order map from the overview board — card ID -> position
+      // Board links appear in column order (top to bottom, left to right)
+      // reflecting the user's manual priority within each status group
+      const boardOrder = {};
+      document.querySelectorAll('.board-link[href^="#"]').forEach((link, i) => {
+        const cardId = link.getAttribute('href').replace('#', '');
+        if (!(cardId in boardOrder)) boardOrder[cardId] = i;
+      });
+
       cards.sort((a, b) => {
         const badgeA = a.querySelector('.card-top .badge');
         const badgeB = b.querySelector('.card-top .badge');
-
-        // Determine badge type from class
-        const getType = el => {
-          if (!el) return 99;
-          const cls = el.className;
-          if (cls.includes('badge-deadline')) return 0;
-          if (cls.includes('badge-soon'))     return 1;
-          if (cls.includes('badge-progress')) return 2;
-          if (cls.includes('badge-radar'))    return 3;
-          if (cls.includes('badge-waiting'))  return 4;
-          return 5;
-        };
-
         const typeA = getType(badgeA);
         const typeB = getType(badgeB);
 
         if (typeA !== typeB) return typeA - typeB;
 
-        // Same badge type — sort alphabetically by card title
-        const titleA = (a.querySelector('.card-title') || {}).textContent.trim().toLowerCase();
-        const titleB = (b.querySelector('.card-title') || {}).textContent.trim().toLowerCase();
-        return titleA.localeCompare(titleB);
+        // Same status — use board order, fall back to current DOM order for unlinked cards
+        const orderA = (a.id in boardOrder) ? boardOrder[a.id] : 9999;
+        const orderB = (b.id in boardOrder) ? boardOrder[b.id] : 9999;
+        return orderA - orderB;
       });
 
       // Re-append in sorted order
