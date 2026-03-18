@@ -11,7 +11,7 @@
   <div class="toolbar">
     <div class="page-header">
       <h1>Work Dashboard</h1>
-      <div class="subtitle" id="subtitle">Last updated: March 17, 2026 &nbsp;·&nbsp; Managed with Claude</div>
+      <div class="subtitle" id="subtitle">Last updated: March 18, 2026 &nbsp;·&nbsp; Managed with Claude</div>
     </div>
     <div class="toolbar-actions">
       <button class="btn btn-sort" onclick="sortCards()">Sort Cards</button>
@@ -29,18 +29,11 @@
     <div class="col col-frontburner">
       <div class="col-header">Front Burner</div>
             <div id="board-frontburner">
+        
         <div class="board-item">
           <span class="drag-grip" title="Drag to reorder">⠿</span>
           <div class="board-item-content">
-            <a href="#card-rubric" class="board-link">Enhanced Rubrics Announcement (3/24)</a>
-            <div class="sub" contenteditable="true">Deadline: March 24 · ~2 hrs</div>
-          </div>
-          <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
-        </div>
-        <div class="board-item">
-          <span class="drag-grip" title="Drag to reorder">⠿</span>
-          <div class="board-item-content">
-            <a href="#card-youtube" class="board-link">YouTube Migration</a>
+            <a href="#card-youtube" class="board-link">YouTube Migration (WP)</a>
             <div class="sub" contenteditable="true">~5 hrs total, start with framing</div>
           </div>
           <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
@@ -151,7 +144,14 @@
           </div>
           <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
         </div>
-      </div>
+      <div class="board-item">
+          <span class="drag-grip" title="Drag to reorder">⠿</span>
+          <div class="board-item-content">
+            <a href="#card-rubric" class="board-link">Enhanced Rubrics (WP)</a>
+            <div class="sub" contenteditable="true">Deadline: March 24 · ~2 hrs</div>
+          </div>
+          <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
+        </div></div>
       <div class="add-row" onclick="addBoardItem('board-radar')">+ Add item</div>
     </div>
 
@@ -246,48 +246,10 @@
     <!-- Qikr LTI -->
     
 
-  <div class="card card-deadline" id="card-rubric">
+  <div class="card card-soon" id="card-youtube">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
-        <div class="card-title" contenteditable="true">Enhanced Rubrics Announcement (3/24)</div>
-        <div class="badge badge-deadline" onclick="openBadgePicker(this)">Due Mar 24</div>
-        <span class="card-controls" onclick="removeCard(this)" title="Remove card">×</span>
-      </div>
-      <div class="card-meta" contenteditable="true">Est. total: ~2 hrs · Becomes default on March 24 — announce before then</div>
-      <ul class="steps" id="steps-rubric">
-        <li class="step">
-          <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
-          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
-          <div class="step-body">
-            <div class="step-text" contenteditable="true">Review and test the enhanced rubric feature</div>
-          </div>
-          <div class="step-time" contenteditable="true">~30 min</div>
-          <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
-        </li>
-        <li class="step">
-          <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
-          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">2</div>
-          <div class="step-body">
-            <div class="step-text" contenteditable="true">Write a Canvas guide covering what's new and how to use it</div>
-          </div>
-          <div class="step-time" contenteditable="true">~1 hr</div>
-          <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
-        </li>
-        <li class="step">
-          <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
-          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div>
-          <div class="step-body">
-            <div class="step-text" contenteditable="true">Draft and send faculty announcement before March 24</div>
-          </div>
-          <div class="step-time" contenteditable="true">~30 min</div>
-          <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
-        </li>
-      </ul>
-      <div class="add-step" onclick="addStep('steps-rubric')">+ Add step</div>
-    </div><div class="card card-soon" id="card-youtube">
-      <div class="card-top">
-        <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
-        <div class="card-title" contenteditable="true">YouTube Migration</div>
+        <div class="card-title" contenteditable="true">YouTube Migration (WP)</div>
         <div class="badge badge-soon" onclick="openBadgePicker(this)">Do Soon</div>
         <span class="card-controls" onclick="removeCard(this)" title="Remove card">×</span>
       </div>
@@ -419,47 +381,17 @@
         </div>
         <div class="step-time" contenteditable="true">TBD</div>
         <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+      </li><li class="step">
+        <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">6</div>
+        <div class="step-body">
+          <div class="step-text" contenteditable="true">Enhanced Rubrics (12/16/26)</div>
+        </div>
+        <div class="step-time" contenteditable="true">TBD</div>
+        <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
       </li></ul>
         <div class="add-step" onclick="addStep('steps-new-105')">+ Add step</div>
-      </div><div class="card card-progress" id="card-office365">
-      <div class="card-top">
-        <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
-        <div class="card-title" contenteditable="true">Office 365 LTI</div>
-        <div class="badge badge-progress" onclick="openBadgePicker(this)">In Progress</div>
-        <span class="card-controls" onclick="removeCard(this)" title="Remove card">×</span>
-      </div>
-      <div class="card-meta" contenteditable="true">Est. total: ~2–3 hrs · Testing done, launch imminent</div>
-      <ul class="steps" id="steps-office365">
-        <li class="step">
-          <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
-          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
-          <div class="step-body">
-            <div class="step-text" contenteditable="true">Confirm testing is complete and greenlight the launch</div>
-          </div>
-          <div class="step-time" contenteditable="true">~15 min</div>
-          <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
-        </li>
-        <li class="step">
-          <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
-          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">2</div>
-          <div class="step-body">
-            <div class="step-text" contenteditable="true">Write faculty guide (WP)</div>
-          </div>
-          <div class="step-time" contenteditable="true">1–2 hrs</div>
-          <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
-        </li>
-        <li class="step">
-          <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
-          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div>
-          <div class="step-body">
-            <div class="step-text" contenteditable="true">Draft and send announcement (Impact?)</div>
-          </div>
-          <div class="step-time" contenteditable="true">~30 min</div>
-          <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
-        </li>
-      </ul>
-      <div class="add-step" onclick="addStep('steps-office365')">+ Add step</div>
-    </div><div class="card card-progress" id="card-new-101">
+      </div><div class="card card-progress" id="card-new-101">
         <div class="card-top">
           <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">A11y Guides (WP)</div>
@@ -511,7 +443,45 @@
         <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
       </li></ul>
         <div class="add-step" onclick="addStep('steps-new-101')">+ Add step</div>
-      </div><div class="card card-progress" id="card-new-102">
+      </div><div class="card card-progress" id="card-office365">
+      <div class="card-top">
+        <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
+        <div class="card-title" contenteditable="true">Office 365 LTI</div>
+        <div class="badge badge-progress" onclick="openBadgePicker(this)">In Progress</div>
+        <span class="card-controls" onclick="removeCard(this)" title="Remove card">×</span>
+      </div>
+      <div class="card-meta" contenteditable="true">Est. total: ~2–3 hrs · Testing done, launch imminent</div>
+      <ul class="steps" id="steps-office365">
+        <li class="step">
+          <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
+          <div class="step-body">
+            <div class="step-text" contenteditable="true">Confirm testing is complete and greenlight the launch</div>
+          </div>
+          <div class="step-time" contenteditable="true">~15 min</div>
+          <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+        </li>
+        <li class="step">
+          <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">2</div>
+          <div class="step-body">
+            <div class="step-text" contenteditable="true">Write faculty guide (WP)</div>
+          </div>
+          <div class="step-time" contenteditable="true">1–2 hrs</div>
+          <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+        </li>
+        <li class="step">
+          <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div>
+          <div class="step-body">
+            <div class="step-text" contenteditable="true">Draft and send announcement (Impact?)</div>
+          </div>
+          <div class="step-time" contenteditable="true">~30 min</div>
+          <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+        </li>
+      </ul>
+      <div class="add-step" onclick="addStep('steps-office365')">+ Add step</div>
+    </div><div class="card card-progress" id="card-new-102">
         <div class="card-top">
           <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">LTI Cleanup</div>
@@ -846,6 +816,44 @@
         </li>
       </ul>
       <div class="add-step" onclick="addStep('steps-new-quizzes')">+ Add step</div>
+    </div><div class="card card-radar" id="card-rubric">
+      <div class="card-top">
+        <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
+        <div class="card-title" contenteditable="true">Enhanced Rubrics (WP)</div>
+        <div class="badge badge-radar" onclick="openBadgePicker(this)">On the Radar</div>
+        <span class="card-controls" onclick="removeCard(this)" title="Remove card">×</span>
+      </div>
+      <div class="card-meta" contenteditable="true">Est. total: ~2 hrs · Becomes default on March 24 — announce before then</div>
+      <ul class="steps" id="steps-rubric">
+        <li class="step">
+          <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
+          <div class="step-body">
+            <div class="step-text" contenteditable="true">Review and test the enhanced rubric feature</div>
+          </div>
+          <div class="step-time" contenteditable="true">~30 min</div>
+          <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+        </li>
+        <li class="step">
+          <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">2</div>
+          <div class="step-body">
+            <div class="step-text" contenteditable="true">Write a Canvas guide covering what's new and how to use it</div>
+          </div>
+          <div class="step-time" contenteditable="true">~1 hr</div>
+          <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+        </li>
+        <li class="step">
+          <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div>
+          <div class="step-body">
+            <div class="step-text" contenteditable="true">Draft and send faculty announcement before March 24</div>
+          </div>
+          <div class="step-time" contenteditable="true">~30 min</div>
+          <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+        </li>
+      </ul>
+      <div class="add-step" onclick="addStep('steps-rubric')">+ Add step</div>
     </div><div class="card card-waiting" id="card-badges">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
@@ -977,7 +985,7 @@
 
   </div>
 
-  <div class="footer" id="footer">Last updated: March 17, 2026 &nbsp;·&nbsp; Managed with Claude</div>
+  <div class="footer" id="footer">Last updated: March 18, 2026 &nbsp;·&nbsp; Managed with Claude</div>
 
   <!-- ADD TYPE MODAL -->
   <div class="modal-overlay" id="add-type-modal" onclick="if(event.target===this) this.classList.remove('open')" data-list-id="board-radar">
