@@ -51,7 +51,14 @@
           </div>
           <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
         </div>
-      </div>
+      <div class="board-item">
+          <span class="drag-grip" title="Drag to reorder">⠿</span>
+          <div class="board-item-content">
+            <a href="#card-new-101" class="board-link">A11y Guides (WP)</a>
+            <div class="sub" contenteditable="true">Set of WP pages on a11y</div>
+          </div>
+          <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
+        </div></div>
       <div class="add-row" onclick="addBoardItem('board-frontburner')">+ Add item</div>
     </div>
 
@@ -66,14 +73,7 @@
           </div>
           <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
         </div>
-        <div class="board-item">
-          <span class="drag-grip" title="Drag to reorder">⠿</span>
-          <div class="board-item-content">
-            <a href="#card-new-101" class="board-link">A11y Guides (WP)</a>
-            <div class="sub" contenteditable="true">Set of WP pages on a11y</div>
-          </div>
-          <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
-        </div>
+        
         <div class="board-item">
           <span class="drag-grip" title="Drag to reorder">⠿</span>
           <div class="board-item-content">
@@ -234,6 +234,38 @@
   <div class="section-label">Active Project Detail</div>
   <div class="cards" id="cards-container">
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
   <div class="card card-soon" id="card-self-eval">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
@@ -266,9 +298,7 @@
         </li>
       </ul>
       <div class="add-step" onclick="addStep('steps-self-eval')">+ Add step</div>
-    </div>
-
-  <div class="card card-soon" id="card-youtube">
+    </div><div class="card card-soon" id="card-youtube">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">YouTube Migration (WP)</div>
@@ -307,9 +337,7 @@
         </li>
       </ul>
       <div class="add-step" onclick="addStep('steps-youtube')">+ Add step</div>
-    </div>
-
-  <div class="card card-soon" id="card-new-107">
+    </div><div class="card card-soon" id="card-new-107">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">Copyleaks Manual Scan Guide (WP)</div>
@@ -327,9 +355,23 @@
         </li>
       </ul>
       <div class="add-step" onclick="addStep('steps-new-107')">+ Add step</div>
-    </div>
-
-  <div class="card card-progress" id="card-new-105">
+    </div><div class="card card-soon" id="card-new-101">
+      <div class="card-top">
+        <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
+        <div class="card-title" contenteditable="true">A11y Guides (WP)</div>
+        <div class="badge badge-soon" onclick="openBadgePicker(this)">Do Soon</div>
+        <span class="card-controls" onclick="removeCard(this)" title="Remove card">×</span>
+      </div>
+      <div class="card-meta" contenteditable="true">Est. total: TBD</div>
+      <ul class="steps" id="steps-new-101">
+        <li class="step done"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div><div class="step-body"><div class="step-text" contenteditable="true">Accessible Text</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
+        <li class="step done"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">2</div><div class="step-body"><div class="step-text" contenteditable="true">Accessible Tables</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
+        <li class="step done"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div><div class="step-body"><div class="step-text" contenteditable="true">Accessible Color</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
+        <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">4</div><div class="step-body"><div class="step-text" contenteditable="true">Accessible Images</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
+        <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">5</div><div class="step-body"><div class="step-text" contenteditable="true">Accessible Media</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
+      </ul>
+      <div class="add-step" onclick="addStep('steps-new-101')">+ Add step</div>
+    </div><div class="card card-progress" id="card-new-105">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">Impact Messages</div>
@@ -347,27 +389,7 @@
         <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">7</div><div class="step-body"><div class="step-text" contenteditable="true">YouTube Migration</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
       </ul>
       <div class="add-step" onclick="addStep('steps-new-105')">+ Add step</div>
-    </div>
-
-  <div class="card card-progress" id="card-new-101">
-      <div class="card-top">
-        <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
-        <div class="card-title" contenteditable="true">A11y Guides (WP)</div>
-        <div class="badge badge-progress" onclick="openBadgePicker(this)">In Progress</div>
-        <span class="card-controls" onclick="removeCard(this)" title="Remove card">×</span>
-      </div>
-      <div class="card-meta" contenteditable="true">Est. total: TBD</div>
-      <ul class="steps" id="steps-new-101">
-        <li class="step done"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div><div class="step-body"><div class="step-text" contenteditable="true">Accessible Text</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
-        <li class="step done"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">2</div><div class="step-body"><div class="step-text" contenteditable="true">Accessible Tables</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
-        <li class="step done"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div><div class="step-body"><div class="step-text" contenteditable="true">Accessible Color</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
-        <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">4</div><div class="step-body"><div class="step-text" contenteditable="true">Accessible Images</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
-        <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">5</div><div class="step-body"><div class="step-text" contenteditable="true">Accessible Media</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
-      </ul>
-      <div class="add-step" onclick="addStep('steps-new-101')">+ Add step</div>
-    </div>
-
-  <div class="card card-progress" id="card-office365">
+    </div><div class="card card-progress" id="card-office365">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">Office 365 LTI</div>
@@ -381,9 +403,7 @@
         <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div><div class="step-body"><div class="step-text" contenteditable="true">Draft and send announcement (Impact?)</div></div><div class="step-time" contenteditable="true">~30 min</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
       </ul>
       <div class="add-step" onclick="addStep('steps-office365')">+ Add step</div>
-    </div>
-
-  <div class="card card-progress" id="card-new-102">
+    </div><div class="card card-progress" id="card-new-102">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">LTI Cleanup</div>
@@ -398,9 +418,7 @@
         <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">4</div><div class="step-body"><div class="step-text" contenteditable="true">Deploy</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
       </ul>
       <div class="add-step" onclick="addStep('steps-new-102')">+ Add step</div>
-    </div>
-
-  <div class="card card-progress" id="card-lms-admin">
+    </div><div class="card card-progress" id="card-lms-admin">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">LMS Admin Procedures</div>
@@ -414,9 +432,7 @@
         <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div><div class="step-body"><div class="step-text" contenteditable="true">Add LTI Procedures section</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
       </ul>
       <div class="add-step" onclick="addStep('steps-lms-admin')">+ Add step</div>
-    </div>
-
-  <div class="card card-radar" id="card-igniteai">
+    </div><div class="card card-radar" id="card-igniteai">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">IgniteAI Tools</div>
@@ -437,9 +453,7 @@
         <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">10</div><div class="step-body"><div class="step-text" contenteditable="true">IgniteAI Agent (TBD)</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
       </ul>
       <div class="add-step" onclick="addStep('steps-igniteai')">+ Add step</div>
-    </div>
-
-  <div class="card card-radar" id="card-new-104">
+    </div><div class="card card-radar" id="card-new-104">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">TMI Web Site Migration</div>
@@ -455,9 +469,7 @@
         <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">5</div><div class="step-body"><div class="step-text" contenteditable="true">Retain WP KB?</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
       </ul>
       <div class="add-step" onclick="addStep('steps-new-104')">+ Add step</div>
-    </div>
-
-  <div class="card card-radar" id="card-new-106">
+    </div><div class="card card-radar" id="card-new-106">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">Prebuilt Courses</div>
@@ -469,9 +481,7 @@
         <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div><div class="step-body"><div class="step-text" contenteditable="true">TBD</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
       </ul>
       <div class="add-step" onclick="addStep('steps-new-106')">+ Add step</div>
-    </div>
-
-  <div class="card card-radar" id="card-new-103">
+    </div><div class="card card-radar" id="card-new-103">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">ORT/DET Updates</div>
@@ -484,9 +494,7 @@
         <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">2</div><div class="step-body"><div class="step-text" contenteditable="true">Update info for FT v PT?</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
       </ul>
       <div class="add-step" onclick="addStep('steps-new-103')">+ Add step</div>
-    </div>
-
-  <div class="card card-radar" id="card-new-quizzes">
+    </div><div class="card card-radar" id="card-new-quizzes">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">New Quizzes</div>
@@ -499,9 +507,7 @@
         <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">2</div><div class="step-body"><div class="step-text" contenteditable="true">Create WP guide to introduce, basics, resources, etc.</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
       </ul>
       <div class="add-step" onclick="addStep('steps-new-quizzes')">+ Add step</div>
-    </div>
-
-  <div class="card card-radar" id="card-rubric">
+    </div><div class="card card-radar" id="card-rubric">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">Enhanced Rubrics (WP)</div>
@@ -515,9 +521,7 @@
         <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div><div class="step-body"><div class="step-text" contenteditable="true">Draft and send faculty announcement before March 24</div></div><div class="step-time" contenteditable="true">~30 min</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
       </ul>
       <div class="add-step" onclick="addStep('steps-rubric')">+ Add step</div>
-    </div>
-
-  <div class="card card-radar" id="card-block-editor">
+    </div><div class="card card-radar" id="card-block-editor">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">Canvas Block Editor</div>
@@ -531,9 +535,7 @@
         <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div><div class="step-body"><div class="step-text" contenteditable="true">Draft faculty announcement and update TMI Guides</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
       </ul>
       <div class="add-step" onclick="addStep('steps-block-editor')">+ Add step</div>
-    </div>
-
-  <div class="card card-waiting" id="card-badges">
+    </div><div class="card card-waiting" id="card-badges">
       <div class="card-top">
         <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
         <div class="card-title" contenteditable="true">Parchment Badges</div>
@@ -548,9 +550,7 @@
         <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">4</div><div class="step-body"><div class="step-text" contenteditable="true">Update group expiration date (1 year)</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
       </ul>
       <div class="add-step" onclick="addStep('steps-badges')">+ Add step</div>
-    </div>
-
-  </div>
+    </div></div>
 
   <!-- BACKLOG -->
   <div class="section-label">Backlog — Chip Away When Front Burner is Clear</div>
@@ -668,5 +668,6 @@
   </div>
 
   <script src="dashboard.js"></script>
+
 
 </body></html>
