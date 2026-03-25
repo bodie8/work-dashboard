@@ -1,4 +1,4 @@
-    // Sortable: status board columns (drag between columns)
+// Sortable: status board columns (drag between columns)
     ['board-inprogress','board-frontburner','board-waiting','board-radar'].forEach(id => {
       Sortable.create(document.getElementById(id), {
         group: 'board',
@@ -26,7 +26,7 @@
         onEnd: renumberSteps
       });
     }
-    ['steps-rubric','steps-youtube','steps-office365','steps-badges','steps-self-eval','steps-lms-admin','steps-block-editor','steps-igniteai','steps-new-quizzes','steps-qikr'].forEach(initStepsSortable);
+    document.querySelectorAll('.steps[id]').forEach(el => initStepsSortable(el.id));
 
     // Sortable: backlog lists (drag between groups)
     ['backlog-guides','backlog-canvas','backlog-other'].forEach(id => {
