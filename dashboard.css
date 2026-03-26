@@ -333,7 +333,6 @@
       text-decoration: line-through;
       color: #bbb;
     }
-    .step.done
     .step.done .step-time { opacity: 0.4; }
     .step.done .step-num {
       background: #fde8e8 !important;
