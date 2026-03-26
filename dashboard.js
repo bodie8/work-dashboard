@@ -1,8 +1,4 @@
-function resizeWindow() {
-      window.resizeTo(1260, 860);
-    }
-
-    // Sortable: status board columns (drag between columns)
+// Sortable: status board columns (drag between columns)
     ['board-inprogress','board-frontburner','board-waiting','board-radar'].forEach(id => {
       Sortable.create(document.getElementById(id), {
         group: 'board',
