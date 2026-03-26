@@ -68,6 +68,20 @@
         <div class="board-item">
           <span class="drag-grip" title="Drag to reorder">⠿</span>
           <div class="board-item-content">
+            <a href="#card-new-106" class="board-link" contenteditable="false">Prebuilt Courses</a>
+            <div class="sub" contenteditable="true">see details below</div>
+          </div>
+          <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
+        </div><div class="board-item">
+          <span class="drag-grip" title="Drag to reorder">⠿</span>
+          <div class="board-item-content">
+            <a href="#card-new-102" class="board-link">LTI Cleanup</a>
+            <div class="sub" contenteditable="true">Remove old and unapproved</div>
+          </div>
+          <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
+        </div><div class="board-item">
+          <span class="drag-grip" title="Drag to reorder">⠿</span>
+          <div class="board-item-content">
             <a href="#card-new-105" class="board-link" contenteditable="false">Impact Messages</a>
             <div class="sub" contenteditable="true">various, draft and schedule</div>
           </div>
@@ -82,14 +96,7 @@
           </div>
           <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
         </div>
-        <div class="board-item">
-          <span class="drag-grip" title="Drag to reorder">⠿</span>
-          <div class="board-item-content">
-            <a href="#card-new-102" class="board-link">LTI Cleanup</a>
-            <div class="sub" contenteditable="true">Remove old and unapproved</div>
-          </div>
-          <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
-        </div>
+        
         <div class="board-item">
           <span class="drag-grip" title="Drag to reorder">⠿</span>
           <div class="board-item-content">
@@ -98,14 +105,7 @@
           </div>
           <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
         </div>
-      <div class="board-item">
-          <span class="drag-grip" title="Drag to reorder">⠿</span>
-          <div class="board-item-content">
-            <a href="#card-new-106" class="board-link" contenteditable="false">Prebuilt Courses</a>
-            <div class="sub" contenteditable="true">see details below</div>
-          </div>
-          <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
-        </div></div>
+      </div>
       <div class="add-row" onclick="addBoardItem('board-inprogress')">+ Add item</div>
     </div>
 
@@ -179,7 +179,7 @@
           <span class="drag-grip" title="Drag to reorder">⠿</span>
           <div class="board-item-content">
             <a href="#card-badges" class="board-link">Parchment Badges</a>
-            <div class="sub" contenteditable="true">Midyear augmentation approval pending</div>
+            <div class="sub" contenteditable="true">Pending midyear augmentation</div>
           </div>
           <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">×</span>
         </div>
@@ -646,8 +646,16 @@
       </div>
       <div class="card-meta" contenteditable="true">Not urgent yet — monitor adoption and prepare when needed</div>
       <ul class="steps" id="steps-new-quizzes">
-        <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div><div class="step-body"><div class="step-text" contenteditable="true">Check faculty adoption (report?)</div></div><div class="step-time" contenteditable="true">Ongoing</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
-        <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">2</div><div class="step-body"><div class="step-text" contenteditable="true">Create WP guide to introduce, basics, resources, etc.</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
+        <li class="step">
+        <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+          <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
+        <div class="step-body">
+          <div class="step-text" contenteditable="true">Monitor release notes for updates, timeline</div>
+        </div>
+        <div class="step-time" contenteditable="true">TBD</div>
+        <div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div>
+      </li><li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">2</div><div class="step-body"><div class="step-text" contenteditable="true">Check faculty adoption (report?)</div></div><div class="step-time" contenteditable="true">Ongoing</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
+        <li class="step"><span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span><div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">3</div><div class="step-body"><div class="step-text" contenteditable="true">Create WP guide to introduce, basics, resources, etc.</div></div><div class="step-time" contenteditable="true">TBD</div><div class="step-controls"><span class="step-delete" onclick="if(confirm('Remove this step?')) { this.closest('.step').remove(); renumberSteps(); }" title="Remove step">×</span></div></li>
       </ul>
       <div class="add-step" onclick="addStep('steps-new-quizzes')">+ Add step</div>
     </div><div class="card card-radar" id="card-rubric">
