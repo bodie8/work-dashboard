@@ -1,4 +1,15 @@
-// Sortable: status board columns (drag between columns)
+// Auto-resize window to target dimensions on load
+    (function() {
+      const W = 1260, H = 860;
+      if (!window.opener && (window.outerWidth < W - 20 || window.outerHeight < H - 20)) {
+        window.open(location.href, '_blank', `width=${W},height=${H}`);
+        window.close();
+      } else {
+        window.resizeTo(W, H);
+      }
+    })();
+
+    // Sortable: status board columns (drag between columns)
     ['board-inprogress','board-frontburner','board-waiting','board-radar'].forEach(id => {
       Sortable.create(document.getElementById(id), {
         group: 'board',
@@ -377,7 +388,7 @@
       clone.querySelectorAll('.edit-hint').forEach(el => el.remove());
 
       // Strip browser extension injections
-      clone.querySelectorAll('[id^="give-freely"], [class^="give-freely"], #ctre_styles, #ctre_wnd').forEach(el => el.remove());
+      clone.querySelectorAll('[id^="give-freely"], [class^="give-freely"], #ctre_styles, #ctre_wnd, #claude-agent-animation-styles, [id^="claude-agent"]').forEach(el => el.remove());
 
       // Always save the button in its resting state
       const cloneSaveBtn = clone.querySelector('.btn-save');
