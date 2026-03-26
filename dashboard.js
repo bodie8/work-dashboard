@@ -1,9 +1,13 @@
-// Auto-resize window to target dimensions on load
+function resizeWindow() {
+      window.resizeTo(1260, 860);
+    }
+
+    // Auto-resize window to target dimensions on load
     (function() {
       const W = 1260, H = 860;
       if (!window.opener && (window.outerWidth < W - 20 || window.outerHeight < H - 20)) {
         window.open(location.href, '_blank', `width=${W},height=${H}`);
-        window.close();
+        location.replace('about:blank');
       } else {
         window.resizeTo(W, H);
       }
