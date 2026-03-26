@@ -1,5 +1,5 @@
 function resizeWindow() {
-      window.resizeTo(1260, 860);
+      window.open(window.location.href, '_blank', 'width=1260,height=860,menubar=no,toolbar=no,location=no,scrollbars=yes');
     }
 
     // Sortable: status board columns (drag between columns)
@@ -63,7 +63,7 @@ function resizeWindow() {
       const li = document.createElement('li');
       li.className = 'step';
       li.innerHTML = `
-        <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+        <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">â ¿</span>
           <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">${count}</div>
         <div class="step-body">
           <div class="step-text" contenteditable="true">New step</div>
@@ -85,7 +85,7 @@ function resizeWindow() {
       'board-radar':       { badgeClass: 'badge-radar',    badgeLabel: 'On the Radar', cardClass: 'card-radar'   }
     };
 
-    // Add a board item — prompts Note vs Card
+    // Add a board item â prompts Note vs Card
     function addBoardItem(listId) {
       document.getElementById('add-type-modal').classList.add('open');
       document.getElementById('add-type-modal').dataset.listId = listId;
@@ -98,7 +98,7 @@ function resizeWindow() {
       const div = document.createElement('div');
       div.className = 'board-item';
       div.innerHTML = `
-        <span class="drag-grip" title="Drag to reorder">⠿</span>
+        <span class="drag-grip" title="Drag to reorder">â ¿</span>
         <div class="board-item-content">
           <span contenteditable="true">New item</span>
           <div class="sub" contenteditable="true">Details</div>
@@ -124,7 +124,7 @@ function resizeWindow() {
       div.id = cardId;
       div.innerHTML = `
         <div class="card-top">
-          <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
+          <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">â ¿</span>
         <div class="card-title" contenteditable="true">New Project</div>
           <div class="badge ${mapping.badgeClass}" onclick="openBadgePicker(this)">${mapping.badgeLabel}</div>
           <span class="card-controls" onclick="removeCard(this)" title="Remove card">&times;</span>
@@ -132,7 +132,7 @@ function resizeWindow() {
         <div class="card-meta" contenteditable="true">Est. total: TBD</div>
         <ul class="steps" id="${stepsId}">
           <li class="step">
-            <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+            <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">â ¿</span>
           <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
             <div class="step-body">
               <div class="step-text" contenteditable="true">First step</div>
@@ -151,10 +151,10 @@ function resizeWindow() {
       const boardDiv = document.createElement('div');
       boardDiv.className = 'board-item';
       boardDiv.innerHTML = `
-        <span class="drag-grip" title="Drag to reorder">⠿</span>
+        <span class="drag-grip" title="Drag to reorder">â ¿</span>
         <div class="board-item-content">
           <a href="#${cardId}" class="board-link" contenteditable="false">New Project</a>
-          <div class="sub" contenteditable="true">New card — see details below</div>
+          <div class="sub" contenteditable="true">New card â see details below</div>
         </div>
         <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">&times;</span>
       `;
@@ -197,7 +197,7 @@ function resizeWindow() {
       div.className = 'card card-soon';
       div.innerHTML = `
         <div class="card-top">
-          <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">⠿</span>
+          <span class="drag-grip" style="font-size:0.9rem;align-self:flex-start;margin-top:4px;" title="Drag to reorder">â ¿</span>
         <div class="card-title" contenteditable="true">New Project</div>
           <div class="badge badge-soon" onclick="openBadgePicker(this)">Do Soon</div>
           <span class="card-controls" onclick="removeCard(this)" title="Remove card">&times;</span>
@@ -205,7 +205,7 @@ function resizeWindow() {
         <div class="card-meta" contenteditable="true">Est. total: TBD</div>
         <ul class="steps" id="${stepsId}">
           <li class="step">
-            <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">⠿</span>
+            <span class="drag-grip" style="margin-top:5px;" title="Drag to reorder">â ¿</span>
           <div class="step-num" onclick="this.closest('.step').classList.toggle('done')" title="Mark complete">1</div>
             <div class="step-body">
               <div class="step-text" contenteditable="true">First step</div>
@@ -245,7 +245,7 @@ function resizeWindow() {
       card.classList.add({ soon:'card-soon', waiting:'card-waiting', progress:'card-progress', deadline:'card-deadline', radar:'card-radar' }[type]);
       document.getElementById('badge-modal').classList.remove('open');
 
-      // Sync the board column — move the linked board item to the matching column
+      // Sync the board column â move the linked board item to the matching column
       const colMap = {
         deadline: 'board-frontburner',
         soon:     'board-frontburner',
@@ -284,7 +284,7 @@ function resizeWindow() {
         return 5;
       };
 
-      // Build an order map from the overview board — card ID -> position
+      // Build an order map from the overview board â card ID -> position
       // Board links appear in column order (top to bottom, left to right)
       // reflecting the user's manual priority within each status group
       const boardOrder = {};
@@ -301,7 +301,7 @@ function resizeWindow() {
 
         if (typeA !== typeB) return typeA - typeB;
 
-        // Same status — use board order, fall back to current DOM order for unlinked cards
+        // Same status â use board order, fall back to current DOM order for unlinked cards
         const orderA = (a.id in boardOrder) ? boardOrder[a.id] : 9999;
         const orderB = (b.id in boardOrder) ? boardOrder[b.id] : 9999;
         return orderA - orderB;
@@ -311,7 +311,7 @@ function resizeWindow() {
       cards.forEach(card => container.appendChild(card));
     }
 
-    // GitHub config — update these two values to match your repo
+    // GitHub config â update these two values to match your repo
     const GITHUB_USER = 'bodie8';
     const GITHUB_REPO = 'work-dashboard';
     const GITHUB_FILE = 'index.html';
@@ -321,7 +321,7 @@ function resizeWindow() {
     function getToken() {
       let token = localStorage.getItem('gh_dashboard_token');
       if (!token) {
-        token = prompt('Enter your GitHub Personal Access Token:\n(It will be saved in your browser — never shared)');
+        token = prompt('Enter your GitHub Personal Access Token:\n(It will be saved in your browser â never shared)');
         if (token) localStorage.setItem('gh_dashboard_token', token.trim());
       }
       return token ? token.trim() : null;
@@ -340,7 +340,7 @@ function resizeWindow() {
     function buildHTML() {
       const now = new Date();
       const dateStr = now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
-      const stamp = `Last updated: ${dateStr} &nbsp;·&nbsp; Managed with Claude`;
+      const stamp = `Last updated: ${dateStr} &nbsp;&middot;&nbsp; Managed with Claude`;
       document.getElementById('footer').innerHTML = stamp;
       document.getElementById('subtitle').innerHTML = stamp;
 
@@ -401,7 +401,7 @@ function resizeWindow() {
 
       isSaving = true;
       const saveBtn = document.querySelector('.btn-save');
-      saveBtn.textContent = 'Saving…';
+      saveBtn.textContent = 'Savingâ¦';
       saveBtn.disabled = true;
 
       try {
@@ -437,7 +437,7 @@ function resizeWindow() {
           const errData = await putRes.json();
           if (putRes.status === 409) {
             cachedSha = null;
-            throw new Error('SHA conflict — please try saving again.');
+            throw new Error('SHA conflict â please try saving again.');
           }
           throw new Error(errData.message || putRes.statusText);
         }
@@ -445,7 +445,7 @@ function resizeWindow() {
         const putData = await putRes.json();
         cachedSha = putData.content?.sha || null;
 
-        saveBtn.textContent = 'Saved ✓';
+        saveBtn.textContent = 'Saved â';
         setTimeout(() => {
           saveBtn.textContent = 'Save';
           saveBtn.disabled = false;
@@ -454,7 +454,7 @@ function resizeWindow() {
       } catch (err) {
         console.error('Save error:', err);
         alert(`Save failed: ${err.message}\n\nIf your token has expired, use "Reset Token" to re-enter it.`);
-        saveBtn.textContent = 'Error — try again';
+        saveBtn.textContent = 'Error â try again';
         setTimeout(() => {
           saveBtn.textContent = 'Save';
           saveBtn.disabled = false;
@@ -464,7 +464,7 @@ function resizeWindow() {
       }
     }
 
-    // Title sync — keep board link text in sync with card title when typed
+    // Title sync â keep board link text in sync with card title when typed
     function syncBoardLink(cardId, newTitle) {
       document.querySelectorAll(`a.board-link[href="#${cardId}"]`).forEach(link => {
         link.textContent = newTitle || 'Untitled';
