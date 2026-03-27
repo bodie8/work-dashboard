@@ -1,4 +1,4 @@
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -198,6 +198,7 @@
     .card-radar    { border-color: #8e44ad; }
     .card-progress { border-color: #27ae60; }
     .card-deadline { border-color: #e74c3c; }
+    .card-complete { border-color: #2471a3; opacity: 0.75; }
 
     .card-top {
       display: flex;
@@ -248,6 +249,7 @@
     .badge-radar   { background: #f5eefb; color: #8e44ad; }
     .badge-progress{ background: #eafaf1; color: #27ae60; }
     .badge-deadline{ background: #fdecea; color: #e74c3c; }
+    .badge-complete{ background: #eaf4fb; color: #2471a3; }
 
     .card-meta {
       font-size: 0.84rem;
@@ -438,6 +440,73 @@
     }
     .backlog-item-controls:hover { color: #e74c3c; }
     .backlog-item:hover .backlog-item-controls { display: flex; }
+
+    /* Collapse bar (completed cards) */
+    .card-collapse-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: calc(100% + 44px);
+      margin: -20px -22px 14px;
+      padding: 6px 0 5px;
+      background: #eaf4fb;
+      border-bottom: 1px solid #d0e9f7;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+      border-radius: 7px 7px 0 0;
+    }
+    .card-collapse-bar:hover { background: #d6ecf8; }
+
+    .card-collapse-chevron {
+      display: inline-block;
+      font-size: 0.7rem;
+      color: #7fb8db;
+      line-height: 1;
+      transition: transform 0.2s;
+    }
+    .card.collapsed .card-collapse-chevron { transform: rotate(180deg); }
+
+    /* card-body wraps the collapsible content */
+    .card-body {
+      overflow: hidden;
+      transition: max-height 0.25s ease, opacity 0.2s ease;
+      max-height: 2000px;
+      opacity: 1;
+    }
+    .card.collapsed .card-body {
+      max-height: 0;
+      opacity: 0;
+    }
+
+    /* Completed date line */
+    .card-completed-date {
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-bottom: 4px;
+    }
+
+    /* Completed section */
+    .completed-section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 36px 0 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .completed-section-header .section-label { margin: 0; flex: 1; }
+    .completed-section-header:hover .completed-toggle-btn { color: #888; }
+    .completed-toggle-btn { font-size: 0.76rem; color: #bbb; }
+
+    #completed-cards-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+    #completed-cards-container.section-hidden { display: none; }
+    .completed-section-header { display: none; }
 
     /* Footer */
     .footer {
