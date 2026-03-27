@@ -178,7 +178,8 @@
       const div = document.createElement('div');
       div.className = 'backlog-item';
       div.innerHTML = `
-        <span contenteditable="true">New item</span>
+        <span class="backlog-grip" title="Drag to reorder">⠿</span>
+        <div class="backlog-item-text"><span contenteditable="true">New item</span></div>
         <span class="backlog-item-controls" onclick="if(confirm('Remove this item?')) this.closest('.backlog-item').remove()" title="Remove">&times;</span>
       `;
       list.appendChild(div);
@@ -321,6 +322,13 @@
       // Move to completed container and show section header
       document.getElementById('completed-cards-container').appendChild(card);
       document.querySelector('.completed-section-header').style.display = 'flex';
+
+      // Remove linked board item from overview
+      const cardId = card.id;
+      if (cardId) {
+        const boardLink = document.querySelector(`a.board-link[href="#${cardId}"]`);
+        if (boardLink) boardLink.closest('.board-item').remove();
+      }
     }
 
     function restoreCardToActive(card) {
@@ -342,6 +350,36 @@
 
       card.classList.remove('collapsed');
       document.getElementById('cards-container').appendChild(card);
+
+      // Re-add linked board item to the correct column
+      const cardId = card.id;
+      if (cardId && !document.querySelector(`a.board-link[href="#${cardId}"]`)) {
+        const badge = card.querySelector('.badge');
+        const title = card.querySelector('.card-title') ? card.querySelector('.card-title').textContent.trim() : 'Untitled';
+        const colMap = {
+          'badge-deadline': 'board-frontburner',
+          'badge-soon':     'board-frontburner',
+          'badge-progress': 'board-inprogress',
+          'badge-radar':    'board-radar',
+          'badge-waiting':  'board-waiting'
+        };
+        const badgeClass = badge ? Array.from(badge.classList).find(c => colMap[c]) : null;
+        const targetListId = badgeClass ? colMap[badgeClass] : 'board-radar';
+        const targetList = document.getElementById(targetListId);
+        if (targetList) {
+          const boardDiv = document.createElement('div');
+          boardDiv.className = 'board-item';
+          boardDiv.innerHTML = `
+            <span class="drag-grip" title="Drag to reorder">⠿</span>
+            <div class="board-item-content">
+              <a href="#${cardId}" class="board-link" contenteditable="false">${title}</a>
+              <div class="sub" contenteditable="true">See details below</div>
+            </div>
+            <span class="board-item-delete" onclick="if(confirm('Remove this item?')) this.closest('.board-item').remove()" title="Remove">&times;</span>
+          `;
+          targetList.appendChild(boardDiv);
+        }
+      }
 
       // Hide section header if no completed cards remain
       if (!document.getElementById('completed-cards-container').children.length) {
