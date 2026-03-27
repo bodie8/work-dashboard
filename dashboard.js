@@ -250,12 +250,13 @@
 
       if (type === 'complete') {
         markCardComplete(card);
-      } else {
-        // If moving FROM completed back to active, restore it
-        restoreCardToActive(card);
+        return;
       }
 
-      // Sync the board column — move the linked board item to the matching column
+      // Restore from completed if needed
+      restoreCardToActive(card);
+
+      // Sync the board column
       const colMap = {
         deadline: 'board-frontburner',
         soon:     'board-frontburner',
@@ -263,73 +264,93 @@
         radar:    'board-radar',
         waiting:  'board-waiting'
       };
-      if (type !== 'complete') {
-        const cardId = card.id;
-        if (cardId) {
-          const boardLink = document.querySelector(`a.board-link[href="#${cardId}"]`);
-          if (boardLink) {
-            const boardItem = boardLink.closest('.board-item');
-            const targetListId = colMap[type];
-            const targetList = document.getElementById(targetListId);
-            if (boardItem && targetList && !targetList.contains(boardItem)) {
-              targetList.appendChild(boardItem);
-            }
+      const cardId = card.id;
+      if (cardId) {
+        const boardLink = document.querySelector(`a.board-link[href="#${cardId}"]`);
+        if (boardLink) {
+          const boardItem = boardLink.closest('.board-item');
+          const targetListId = colMap[type];
+          const targetList = document.getElementById(targetListId);
+          if (boardItem && targetList && !targetList.contains(boardItem)) {
+            targetList.appendChild(boardItem);
           }
         }
       }
     }
 
     function markCardComplete(card) {
-      // Stamp completion date if not already present
+      // Only add collapse bar and date if not already present (idempotent)
+      if (!card.querySelector('.card-collapse-bar')) {
+        // Collapse bar goes at the very top of the card
+        const bar = document.createElement('div');
+        bar.className = 'card-collapse-bar';
+        bar.title = 'Expand / collapse';
+        bar.innerHTML = '<span class="card-collapse-chevron">▲</span>';
+        bar.onclick = () => toggleCardCollapse(card);
+        card.insertBefore(bar, card.firstChild);
+      }
+
       if (!card.querySelector('.card-completed-date')) {
         const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-        const dateSpan = document.createElement('span');
+        const dateSpan = document.createElement('div');
         dateSpan.className = 'card-completed-date';
         dateSpan.textContent = 'Completed ' + dateStr;
+        // Insert after card-top
         const cardTop = card.querySelector('.card-top');
-        cardTop.after(dateSpan);
+        if (cardTop && cardTop.nextSibling) {
+          card.insertBefore(dateSpan, cardTop.nextSibling);
+        } else {
+          card.appendChild(dateSpan);
+        }
       }
 
-      // Add collapse toggle button to card-top if not present
-      if (!card.querySelector('.collapse-toggle')) {
-        const toggle = document.createElement('span');
-        toggle.className = 'collapse-toggle';
-        toggle.title = 'Expand / collapse';
-        toggle.textContent = '▾';
-        toggle.onclick = () => toggleCardCollapse(card);
-        const cardTop = card.querySelector('.card-top');
-        cardTop.insertBefore(toggle, cardTop.firstChild);
+      // Wrap card-meta + steps + add-step in card-body if not already wrapped
+      if (!card.querySelector('.card-body')) {
+        const body = document.createElement('div');
+        body.className = 'card-body';
+        const meta = card.querySelector('.card-meta');
+        const steps = card.querySelector('.steps');
+        const addStep = card.querySelector('.add-step');
+        [meta, steps, addStep].forEach(el => { if (el) body.appendChild(el); });
+        card.appendChild(body);
       }
 
-      // Collapse the card
-      card.classList.add('card-collapsed');
+      // Collapse
+      card.classList.add('collapsed');
 
-      // Move to completed container
-      const completedContainer = document.getElementById('completed-cards-container');
-      completedContainer.appendChild(card);
+      // Move to completed container and show section header
+      document.getElementById('completed-cards-container').appendChild(card);
+      document.querySelector('.completed-section-header').style.display = 'flex';
     }
 
     function restoreCardToActive(card) {
       const completedContainer = document.getElementById('completed-cards-container');
       if (!completedContainer.contains(card)) return;
 
-      // Remove completed date stamp
-      const dateSpan = card.querySelector('.card-completed-date');
-      if (dateSpan) dateSpan.remove();
+      // Unwrap card-body back into card
+      const body = card.querySelector('.card-body');
+      if (body) {
+        while (body.firstChild) card.insertBefore(body.firstChild, body);
+        body.remove();
+      }
 
-      // Remove collapse toggle
-      const toggle = card.querySelector('.collapse-toggle');
-      if (toggle) toggle.remove();
+      // Remove collapse bar and date
+      const bar = card.querySelector('.card-collapse-bar');
+      if (bar) bar.remove();
+      const date = card.querySelector('.card-completed-date');
+      if (date) date.remove();
 
-      // Un-collapse
-      card.classList.remove('card-collapsed');
-
-      // Move back to active cards container
+      card.classList.remove('collapsed');
       document.getElementById('cards-container').appendChild(card);
+
+      // Hide section header if no completed cards remain
+      if (!document.getElementById('completed-cards-container').children.length) {
+        document.querySelector('.completed-section-header').style.display = 'none';
+      }
     }
 
     function toggleCardCollapse(card) {
-      card.classList.toggle('card-collapsed');
+      card.classList.toggle('collapsed');
     }
 
     function toggleCompletedSection() {
@@ -441,6 +462,12 @@
             cloneSteps[i].classList.remove('done');
           }
         });
+        // Sync collapsed state on completed cards
+        if (liveCard.classList.contains('collapsed')) {
+          cloneCard.classList.add('collapsed');
+        } else {
+          cloneCard.classList.remove('collapsed');
+        }
       });
 
       // Clean up SortableJS artifacts
@@ -552,8 +579,13 @@
       }
     });
 
-    // Wire up collapse toggles for any completed cards restored from saved HTML
+    // Wire up collapse bar onclicks for completed cards restored from saved HTML
     document.querySelectorAll('#completed-cards-container .card').forEach(card => {
-      const toggle = card.querySelector('.collapse-toggle');
-      if (toggle) toggle.onclick = () => toggleCardCollapse(card);
+      const bar = card.querySelector('.card-collapse-bar');
+      if (bar) bar.onclick = () => toggleCardCollapse(card);
     });
+
+    // Show completed section header if there are saved completed cards
+    if (document.getElementById('completed-cards-container').children.length) {
+      document.querySelector('.completed-section-header').style.display = 'flex';
+    }
