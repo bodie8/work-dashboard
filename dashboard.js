@@ -15,6 +15,13 @@
       handle: '.drag-grip'
     });
 
+    // Sortable: completed cards grid
+    Sortable.create(document.getElementById('completed-cards-container'), {
+      animation: 150,
+      ghostClass: 'sortable-ghost',
+      handle: '.drag-grip'
+    });
+
     // Sortable: steps within each card
     function initStepsSortable(listId) {
       const el = document.getElementById(listId);
@@ -237,9 +244,16 @@
       const card = activeBadgeEl.closest('.card');
       activeBadgeEl.className = `badge badge-${type}`;
       activeBadgeEl.textContent = label;
-      card.className = card.className.replace(/\bcard-(soon|waiting|progress|deadline|radar)\b/g, '').trim();
-      card.classList.add({ soon:'card-soon', waiting:'card-waiting', progress:'card-progress', deadline:'card-deadline', radar:'card-radar' }[type]);
+      card.className = card.className.replace(/\bcard-(soon|waiting|progress|deadline|radar|complete)\b/g, '').trim();
+      card.classList.add({ soon:'card-soon', waiting:'card-waiting', progress:'card-progress', deadline:'card-deadline', radar:'card-radar', complete:'card-complete' }[type]);
       document.getElementById('badge-modal').classList.remove('open');
+
+      if (type === 'complete') {
+        markCardComplete(card);
+      } else {
+        // If moving FROM completed back to active, restore it
+        restoreCardToActive(card);
+      }
 
       // Sync the board column — move the linked board item to the matching column
       const colMap = {
@@ -249,18 +263,80 @@
         radar:    'board-radar',
         waiting:  'board-waiting'
       };
-      const cardId = card.id;
-      if (cardId) {
-        const boardLink = document.querySelector(`a.board-link[href="#${cardId}"]`);
-        if (boardLink) {
-          const boardItem = boardLink.closest('.board-item');
-          const targetListId = colMap[type];
-          const targetList = document.getElementById(targetListId);
-          if (boardItem && targetList && !targetList.contains(boardItem)) {
-            targetList.appendChild(boardItem);
+      if (type !== 'complete') {
+        const cardId = card.id;
+        if (cardId) {
+          const boardLink = document.querySelector(`a.board-link[href="#${cardId}"]`);
+          if (boardLink) {
+            const boardItem = boardLink.closest('.board-item');
+            const targetListId = colMap[type];
+            const targetList = document.getElementById(targetListId);
+            if (boardItem && targetList && !targetList.contains(boardItem)) {
+              targetList.appendChild(boardItem);
+            }
           }
         }
       }
+    }
+
+    function markCardComplete(card) {
+      // Stamp completion date if not already present
+      if (!card.querySelector('.card-completed-date')) {
+        const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        const dateSpan = document.createElement('span');
+        dateSpan.className = 'card-completed-date';
+        dateSpan.textContent = 'Completed ' + dateStr;
+        const cardTop = card.querySelector('.card-top');
+        cardTop.after(dateSpan);
+      }
+
+      // Add collapse toggle button to card-top if not present
+      if (!card.querySelector('.collapse-toggle')) {
+        const toggle = document.createElement('span');
+        toggle.className = 'collapse-toggle';
+        toggle.title = 'Expand / collapse';
+        toggle.textContent = '▾';
+        toggle.onclick = () => toggleCardCollapse(card);
+        const cardTop = card.querySelector('.card-top');
+        cardTop.insertBefore(toggle, cardTop.firstChild);
+      }
+
+      // Collapse the card
+      card.classList.add('card-collapsed');
+
+      // Move to completed container
+      const completedContainer = document.getElementById('completed-cards-container');
+      completedContainer.appendChild(card);
+    }
+
+    function restoreCardToActive(card) {
+      const completedContainer = document.getElementById('completed-cards-container');
+      if (!completedContainer.contains(card)) return;
+
+      // Remove completed date stamp
+      const dateSpan = card.querySelector('.card-completed-date');
+      if (dateSpan) dateSpan.remove();
+
+      // Remove collapse toggle
+      const toggle = card.querySelector('.collapse-toggle');
+      if (toggle) toggle.remove();
+
+      // Un-collapse
+      card.classList.remove('card-collapsed');
+
+      // Move back to active cards container
+      document.getElementById('cards-container').appendChild(card);
+    }
+
+    function toggleCardCollapse(card) {
+      card.classList.toggle('card-collapsed');
+    }
+
+    function toggleCompletedSection() {
+      const container = document.getElementById('completed-cards-container');
+      const btn = document.getElementById('completed-toggle-btn');
+      const isHidden = container.classList.toggle('section-hidden');
+      btn.textContent = isHidden ? 'show' : 'hide';
     }
 
     // Sort cards by status priority, then by overview board order within each status
@@ -474,4 +550,10 @@
       if (titleEl) {
         titleEl.addEventListener('input', () => syncBoardLink(cardId, titleEl.textContent.trim()));
       }
+    });
+
+    // Wire up collapse toggles for any completed cards restored from saved HTML
+    document.querySelectorAll('#completed-cards-container .card').forEach(card => {
+      const toggle = card.querySelector('.collapse-toggle');
+      if (toggle) toggle.onclick = () => toggleCardCollapse(card);
     });
