@@ -863,6 +863,12 @@
 
   </div>
 
+  <div class="completed-section-header" onclick="toggleCompletedSection()">
+    <div class="section-label">Completed Projects</div>
+    <span class="completed-toggle-btn" id="completed-toggle-btn">hide</span>
+  </div>
+  <div class="cards" id="completed-cards-container"></div>
+
   <div class="footer" id="footer">Last updated: March 27, 2026 &nbsp;·&nbsp; Managed with Claude</div>
 
   <!-- ADD TYPE MODAL -->
@@ -886,6 +892,7 @@
         <button class="badge-option badge-progress" onclick="setBadge('progress','In Progress')">In Progress</button>
         <button class="badge-option badge-waiting" onclick="setBadge('waiting','Waiting')">Waiting</button>
         <button class="badge-option badge-radar" onclick="setBadge('radar','On the Radar')">On the Radar</button>
+        <button class="badge-option badge-complete" onclick="setBadge('complete','Completed')">Completed</button>
       </div>
     </div>
   </div>
